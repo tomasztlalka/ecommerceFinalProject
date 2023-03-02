@@ -12,7 +12,7 @@ public class TestCase2 : TestBaseClass
     [Test]
     public void OrderNumberTest()
     {
-        //Scrolling down to be able to click 'Proceed to checkout' button
+        //Scrolling down to click the 'Proceed to checkout' button
         var element = driver.FindElement(By.CssSelector("#colophon > div > div.site-info"));
         Actions actions = new Actions(driver);
         actions.MoveToElement(element).Perform();
