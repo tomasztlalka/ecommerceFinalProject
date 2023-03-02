@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<TestRunParameters>
+		<Parameter name="browser" value="chrome" />
+		<Parameter name="baseURL" value="https://www.edgewordstraining.co.uk/demo-site/" />
+		<Parameter name="username" value="tomasz.tlalka@nfocus.co.uk" />
+		<Parameter name="password" value="Edgewords420Training" />
+		<Parameter name="edgewords_coupon" value="edgewords" />
+		<Parameter name="discount_percentage" value="0.15" />
+		<Parameter name="shipping_fee" value="3.95" />
+		<Parameter name="first_name" value="John" />
+		<Parameter name="last_name" value="Mayhew" />
+		<Parameter name="address_1" value="308 Negra Arroyo Lane" />
+		<Parameter name="city" value="Albuquerque" />
+		<Parameter name="postcode" value="AB164GB" />
+		<Parameter name="phone" value="07134490550" />
+	</TestRunParameters>
+</RunSettings>
