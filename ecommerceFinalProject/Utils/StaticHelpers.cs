@@ -17,6 +17,8 @@ namespace ecommerceFinalProject.Utils
             wait2.Until(drv => drv.FindElement(locator).Displayed);
         }
 
+        
+
         public static void TakeScreenshotOfElement(IWebDriver driver, By locator, string filename)
         {
             IWebElement form = driver.FindElement(locator);

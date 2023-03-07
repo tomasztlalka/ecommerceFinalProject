@@ -1,4 +1,5 @@
 using NUnit.Framework.Internal;
+using OpenQA.Selenium.Remote;
 
 [TestFixture]
 
@@ -9,6 +10,7 @@ public class TestCase1 : TestBaseClass
     {
         TopNav topNav = new TopNav(driver);
         CartPage cartPage = new CartPage(driver);
+        ShopPage shopPage = new ShopPage(driver, topNav);
 
         //Defining decimal point precision
         NumberFormatInfo setPrecision = new NumberFormatInfo();
@@ -16,6 +18,9 @@ public class TestCase1 : TestBaseClass
         
         //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
         char[] charsToTrim = {'£'};
+
+        shopPage.AddItemToCart();
+        shopPage.ViewCart();
 
         decimal subTotal = decimal.Parse((cartPage.subTotal.Text).Trim(charsToTrim));
         decimal fractionOfPriceAfterDiscount = 1 - decimal.Parse(TestContext.Parameters["discount_percentage"]);

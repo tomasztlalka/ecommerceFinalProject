@@ -12,6 +12,13 @@ public class TestCase2 : TestBaseClass
     [Test]
     public void OrderNumberTest()
     {
+        //TODO: See if this can be done differently (not instantiating a topNav in every class?)
+        TopNav topNav = new TopNav(driver);
+        ShopPage shopPage = new ShopPage(driver, topNav);
+
+        shopPage.AddItemToCart();
+        shopPage.ViewCart();
+
         //Scrolling down to click the 'Proceed to checkout' button
         var element = driver.FindElement(By.CssSelector("#colophon > div > div.site-info"));
         Actions actions = new Actions(driver);
@@ -28,8 +35,7 @@ public class TestCase2 : TestBaseClass
         string orderNumber1 = "#" + driver.FindElement(By.CssSelector("#post-6 > div > div > div > ul > li.woocommerce-order-overview__order.order > strong")).Text;
         Console.WriteLine("Your order number is " + orderNumber1);
 
-        //TODO: See if this can be done differently (not instantiating a topNav in every class?)
-        TopNav topNav = new TopNav(driver);
+        
         topNav.MyAccount.Click();
 
         //Navigate to 'Orders' tab on 'My account' page

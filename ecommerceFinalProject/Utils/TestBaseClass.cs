@@ -13,7 +13,7 @@ public class TestBaseClass
     public void Setup()
     {
         //TODO: Figure out how to escape the slash in runsettings and move
-        string exampleItemPath = "//*[@id=\"main\"]/ul/li[3]/a[2]";
+        //string exampleItemPath = "//*[@id=\"main\"]/ul/li[3]/a[2]";
 
         driver = new ChromeDriver();
         driver.Manage().Window.Maximize();
@@ -32,22 +32,26 @@ public class TestBaseClass
         //TODO: Move to POM
         Assert.That(driver.FindElement(By.LinkText("Logout")).Displayed, "Can't find the logout button - not logged in");
         
-        RemoveItemFromCart();        
-        topNav.Shop.Click();
+        RemoveItemFromCart();   
+        
 
-        //Add an item of clothing to the cart
-        //TODO: Move to POM
-        driver.FindElement(By.XPath(exampleItemPath)).Click();
+        //topNav.Shop.Click();
+        ////Add an item of clothing to the cart
+        ////TODO: Move to POM
+        //driver.FindElement(By.XPath(exampleItemPath)).Click();
 
-        //Wait for the cart to get updated with the newly added item
-        WaitForElement(By.LinkText("View cart"), 2, driver);
-        topNav.Cart.Click();
+        ////Wait for the cart to get updated with the newly added item
+        //WaitForElement(By.LinkText("View cart"), 2, driver);
+        //topNav.Cart.Click();
     } 
 
     [TearDown] 
     public void TearDown() 
     {
         TopNav topNav = new TopNav(driver);
+
+        //Attempt deleting the item from cart after each test is run, as items will remain in
+        //cart even after logging out of the account
         RemoveItemFromCart();
         topNav.MyAccount.Click();
 
@@ -56,12 +60,15 @@ public class TestBaseClass
         driver.Quit();
     }
 
-    //Attempt deleting the item from cart after each test is run, as items will remain in
-    //cart even after logging out of the account
+    //Method for navigating to the Cart and removing any item
     public void RemoveItemFromCart()
     {
         TopNav topNav = new TopNav(driver);
         CartPage cartPage = new CartPage(driver);
+
+        //TODO: use a while loop to remove ALL the items, while condition is waiting for the "cart empty" message
+        //TODO: after while loop works, rename method
+        //TODO: use a separate .cs file to test this works first
         try
         {
             topNav.Cart.Click();
