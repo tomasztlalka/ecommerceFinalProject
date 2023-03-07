@@ -35,6 +35,9 @@ internal class CartPage
     public IWebElement subTotal => _driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-subtotal > td > span"));
 
     public IWebElement cartTotal => _driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.order-total > td > strong > span > bdi"));
+
+    public IWebElement cartEmptyMessage => _driver.FindElement(By.CssSelector("#post-5 > div > div > div > p"));
+     
     public string appliedCouponFieldPath=> "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-discount.coupon-edgewords > th";
 
     //Service Methods

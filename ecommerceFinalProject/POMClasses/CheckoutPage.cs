@@ -41,8 +41,11 @@ internal class CheckoutPage
     public void SubmitOrder()
     {
         placeOrderButton.Click();
+        //Wait for order number to appear on page
+        WaitForElement(By.CssSelector("#post-6 > div > div > div > ul > li.woocommerce-order-overview__order.order > strong"), 3, _driver);
+
     }
 
-        
+
 }
 

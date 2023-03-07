@@ -9,12 +9,12 @@
 
     //Locators
 
-    public IWebElement dashboardButton => _driver.FindElement(By.Id("***"));
-    public IWebElement ordersButton => _driver.FindElement(By.CssSelector("#post-7 > div > div > nav > ul > li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--orders > a"));
-    public IWebElement downloadsButton => _driver.FindElement(By.Id("***"));
-    public IWebElement addressesButton => _driver.FindElement(By.Id("***"));
-    public IWebElement accountDetailsButton => _driver.FindElement(By.Id("***"));
-    public IWebElement logoutButton => _driver.FindElement(By.LinkText("Logout"));
+    public IWebElement dashboardTab => _driver.FindElement(By.LinkText("Dashboard"));
+    public IWebElement ordersTab => _driver.FindElement(By.LinkText("Orders"));
+    public IWebElement downloadsTab => _driver.FindElement(By.LinkText("Downloads"));
+    public IWebElement addressesTab => _driver.FindElement(By.LinkText("Addresses"));
+    public IWebElement accountDetailsTab => _driver.FindElement(By.LinkText("Account details"));
+    public IWebElement logoutTab => _driver.FindElement(By.LinkText("Logout"));
 
 
     public IWebElement orderNumber => _driver.FindElement(By.CssSelector("#post-7 > div > div > div > table > tbody > tr > td.woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-number > a"));

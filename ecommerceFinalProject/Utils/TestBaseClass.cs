@@ -25,7 +25,7 @@ public class TestBaseClass
         login.SubmitForm();
 
         //Assert that the login was successful
-        Assert.That(myAccountPage.logoutButton.Displayed, "Can't find the logout button - not logged in");
+        Assert.That(myAccountPage.logoutTab.Displayed, "Can't find the logout button - not logged in");
         
         //Attempt deleting item from cart before starting any tests
         RemoveItemFromCart();   
@@ -45,7 +45,7 @@ public class TestBaseClass
         topNav.MyAccount.Click();
 
         //Logout done in TearDown as both test cases end by logging out
-        myAccountPage.logoutButton.Click();
+        myAccountPage.logoutTab.Click();
         driver.Quit();
     }
 
@@ -55,21 +55,27 @@ public class TestBaseClass
         TopNav topNav = new TopNav(driver);
         CartPage cartPage = new CartPage(driver);
 
-        //TODO: use a while loop to remove ALL the items, while condition is waiting for the "cart empty" message
-        //TODO: after while loop works, rename method
-        //TODO: use a separate .cs file to test this works
-        //
 
+        topNav.Cart.Click();
 
-        try
-        {
-            topNav.Cart.Click();
-            cartPage.DeleteItem();
-        }
-        catch
-        {
-            Console.WriteLine("No items in the cart to delete");
-        }
+        //TODO: This needs fixing, then rename method ^
+        //while (cartPage.couponField.Displayed)
+        //{
+            try
+            {
+                cartPage.DeleteItem();
+
+                WaitForElement((By)cartPage.deleteButton, 3, driver);
+                
+
+            }
+            catch
+            {
+                Console.WriteLine("No items in the cart to delete");
+            }
+            
+        //}
+       
     }
 }
 
