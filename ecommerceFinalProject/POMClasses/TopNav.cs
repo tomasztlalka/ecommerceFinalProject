@@ -1,7 +1,4 @@
 ﻿
-
-namespace ecommerceFinalProject.TopNav
-{
     class TopNav
     {
         private IWebDriver _driver;
@@ -15,6 +12,10 @@ namespace ecommerceFinalProject.TopNav
         public IWebElement Cart => _driver.FindElement(By.LinkText("Cart"));
         public IWebElement Checkout => _driver.FindElement(By.LinkText("Checkout"));
         public IWebElement MyAccount => _driver.FindElement(By.LinkText("My account"));
+        public IWebElement Home => _driver.FindElement(By.LinkText("Home"));
+        public IWebElement Blog => _driver.FindElement(By.LinkText("Blog"));
 
-    }
+
+
 }
+
