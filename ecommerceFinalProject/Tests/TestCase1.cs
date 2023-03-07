@@ -1,5 +1,4 @@
-using NUnit.Framework.Internal;
-using OpenQA.Selenium.Remote;
+
 
 [TestFixture]
 
@@ -19,28 +18,27 @@ public class TestCase1 : TestBaseClass
         //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
         char[] charsToTrim = {'£'};
 
-        shopPage.AddItemToCart();
+        //TODO: Use TestContext.Parameters["item_Path"]
+        shopPage.AddItemToCart("//*[@id=\"main\"]/ul/li[3]/a[2]");
         shopPage.ViewCart();
 
+        //Capture subtotal value from page and get values of parameters from the runsettings file
         decimal subTotal = decimal.Parse((cartPage.subTotal.Text).Trim(charsToTrim));
         decimal fractionOfPriceAfterDiscount = 1 - decimal.Parse(TestContext.Parameters["discount_percentage"]);
         decimal shippingFee = decimal.Parse(TestContext.Parameters["shipping_fee"]);
 
+        //Work out the expected total
         decimal expectedTotal = (subTotal * fractionOfPriceAfterDiscount) + shippingFee;
+        //Write to console for debugging purposes
         Console.WriteLine("The expected total is: " + expectedTotal.ToString("N", setPrecision));
-        
 
-        //Wait for the coupon code text box to appear
-        WaitForElement(By.Name("coupon_code"), 2, driver);
-        cartPage.EnterCouponCode();
+        cartPage.EnterCouponCode();        
         
-        
-        //Wait for the coupon to get applied before proceeding further
-        WaitForElement(By.CssSelector(cartPage.appliedCouponFieldPath), 2, driver);
-
+        //Capture the actual total from page
         decimal actualTotal = decimal.Parse((cartPage.cartTotal.Text).Trim(charsToTrim));
+        //Write to console for debugging purposes
         Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
-
+        //Assert that the two totals are the same
         Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");
     }
 }

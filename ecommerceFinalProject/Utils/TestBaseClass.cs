@@ -3,8 +3,6 @@
 * TODO: figure out Locator strategy throughout the webpages that is more readable
 */
 
-using ecommerceFinalProject.POMClasses;
-
 public class TestBaseClass
 {
     public IWebDriver driver;
@@ -12,51 +10,42 @@ public class TestBaseClass
     [SetUp]
     public void Setup()
     {
-        //TODO: Figure out how to escape the slash in runsettings and move
-        //string exampleItemPath = "//*[@id=\"main\"]/ul/li[3]/a[2]";
-
         driver = new ChromeDriver();
         driver.Manage().Window.Maximize();
-        LoginPage login = new LoginPage(driver);
-        TopNav topNav = new TopNav(driver);
-        
         driver.Url = TestContext.Parameters["baseURL"];
-        driver.FindElement(By.Id("menu-item-46")).Click();
 
-        //Using POM methods to login
+        TopNav topNav = new TopNav(driver);
+        LoginPage login = new LoginPage(driver);
+        MyAccountPage myAccountPage = new MyAccountPage(driver);
+
+        topNav.MyAccount.Click();
+
         login.SetUsername(TestContext.Parameters["username"]);
         login.SetPassword(TestContext.Parameters["password"]);
         login.SubmitForm();
 
         //Assert that the login was successful
-        //TODO: Move to POM
-        Assert.That(driver.FindElement(By.LinkText("Logout")).Displayed, "Can't find the logout button - not logged in");
+        Assert.That(myAccountPage.logoutButton.Displayed, "Can't find the logout button - not logged in");
         
+        //Attempt deleting item from cart before starting any tests
         RemoveItemFromCart();   
-        
-
-        //topNav.Shop.Click();
-        ////Add an item of clothing to the cart
-        ////TODO: Move to POM
-        //driver.FindElement(By.XPath(exampleItemPath)).Click();
-
-        ////Wait for the cart to get updated with the newly added item
-        //WaitForElement(By.LinkText("View cart"), 2, driver);
-        //topNav.Cart.Click();
     } 
 
     [TearDown] 
     public void TearDown() 
     {
         TopNav topNav = new TopNav(driver);
+        MyAccountPage myAccountPage = new MyAccountPage(driver);
+
 
         //Attempt deleting the item from cart after each test is run, as items will remain in
         //cart even after logging out of the account
         RemoveItemFromCart();
+
         topNav.MyAccount.Click();
 
         //Logout done in TearDown as both test cases end by logging out
-        driver.FindElement(By.LinkText("Logout")).Click();
+        myAccountPage.logoutButton.Click();
         driver.Quit();
     }
 
@@ -68,7 +57,10 @@ public class TestBaseClass
 
         //TODO: use a while loop to remove ALL the items, while condition is waiting for the "cart empty" message
         //TODO: after while loop works, rename method
-        //TODO: use a separate .cs file to test this works first
+        //TODO: use a separate .cs file to test this works
+        //
+
+
         try
         {
             topNav.Cart.Click();

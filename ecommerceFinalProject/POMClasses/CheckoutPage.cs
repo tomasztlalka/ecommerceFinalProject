@@ -1,9 +1,9 @@
 ﻿
-internal class Checkout
+internal class CheckoutPage
 {
     private IWebDriver _driver; //Field to hold a webdriver instance
 
-    public Checkout(IWebDriver driver) //Get the webdriver instance from the calling test
+    public CheckoutPage(IWebDriver driver) //Get the webdriver instance from the calling test
     {
         this._driver = driver;
     }
@@ -18,7 +18,7 @@ internal class Checkout
     public IWebElement placeOrderButton => _driver.FindElement(By.CssSelector("#place_order"));
 
     //Service Methods
-    public Checkout FillBillingDetails()
+    public CheckoutPage FillBillingDetails()
     {
         firstName.Clear();
         lastName.Clear();
