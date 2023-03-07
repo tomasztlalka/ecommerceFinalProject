@@ -37,19 +37,5 @@ public class TestCase1 : TestBaseClass
         Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
 
         Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");
-
-        //Attempt deleting the item from cart after each test is run, as items will remain in
-        //cart even after logging out of the account
-        try
-        {
-            topNav.Cart.Click();
-            cartPage.DeleteItem();
-        }
-        catch
-        {
-            Console.WriteLine("No items in the cart to delete");
-        }
-
-        topNav.MyAccount.Click();
     }
 }
