@@ -12,7 +12,7 @@ public class TestCase1 : TestBaseClass
         //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
         char[] charsToTrim = {'£'};
 
-        double subTotal = double.Parse((cartPage.subTotal.Text).Trim(charsToTrim), System.Globalization.CultureInfo.InvariantCulture);
+        double subTotal = double.Parse((cartPage.subTotal.Text).Trim(charsToTrim));
         double fractionOfPriceAfterDiscount = 1.00 - double.Parse(TestContext.Parameters["discount_percentage"]);
         double shippingFee = double.Parse(TestContext.Parameters["shipping_fee"]);
 
@@ -27,7 +27,7 @@ public class TestCase1 : TestBaseClass
         //Wait for the coupon to get applied before proceeding further
         WaitForElement(By.CssSelector(cartPage.appliedCouponFieldPath), 2, driver);
 
-        double actualTotal = double.Parse((cartPage.cartTotal.Text).Trim(charsToTrim), System.Globalization.CultureInfo.InvariantCulture);
+        double actualTotal = double.Parse((cartPage.cartTotal.Text).Trim(charsToTrim));
         Console.WriteLine("The actual total is: " + actualTotal);
 
         Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");

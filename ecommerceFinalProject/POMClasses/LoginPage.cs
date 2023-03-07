@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ecommerceFinalProject.POMClasses
 {
     internal class LoginPage
@@ -39,26 +34,5 @@ namespace ecommerceFinalProject.POMClasses
             submitButton.Click();
         }
 
-        //Helpers
-        //public bool LoginExpectSuccess(string username, string password)
-        //{
-        //    SetUsername(username);
-        //    SetPassword(password);
-        //    SubmitForm();
-
-        //    try
-        //    {
-        //        _driver.SwitchTo().Alert();
-        //        Console.WriteLine("Alert present - not logged in");
-        //        return false;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        //There is no alert - and that's OK!
-        //    }
-        //    return true;
-
-
-        //}
     }
 }

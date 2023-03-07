@@ -26,6 +26,7 @@ public class TestBaseClass
         login.SubmitForm();
 
         //Assert that the login was successful
+        //TODO: Move to POM
         Assert.That(driver.FindElement(By.LinkText("Logout")).Displayed, "Can't find the logout button - not logged in");
 
         TopNav topNav = new TopNav(driver);
