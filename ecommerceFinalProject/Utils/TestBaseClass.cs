@@ -26,9 +26,9 @@ public class TestBaseClass
 
         //Assert that the login was successful
         Assert.That(myAccountPage.logoutTab.Displayed, "Can't find the logout button - not logged in");
-        
-        //Attempt deleting item from cart before starting any tests
-        RemoveItemFromCart();   
+
+        //Attempt to delete all items from the cart before starting any tests
+        ClearCart();   
     } 
 
     [TearDown] 
@@ -38,9 +38,8 @@ public class TestBaseClass
         MyAccountPage myAccountPage = new MyAccountPage(driver);
 
 
-        //Attempt deleting the item from cart after each test is run, as items will remain in
-        //cart even after logging out of the account
-        RemoveItemFromCart();
+        //Attempt to delete all items from the cart after every test is run
+        ClearCart();
 
         topNav.MyAccount.Click();
 
@@ -50,7 +49,7 @@ public class TestBaseClass
     }
 
     //Method for navigating to the Cart and removing any item
-    public void RemoveItemFromCart()
+    public void ClearCart()
     {
         TopNav topNav = new TopNav(driver);
         CartPage cartPage = new CartPage(driver);
@@ -58,23 +57,23 @@ public class TestBaseClass
 
         topNav.Cart.Click();
 
-        //TODO: This needs fixing, then rename method ^
-        //while (cartPage.couponField.Displayed)
-        //{
-            try
+        //TODO: This needs fixing
+        try
+        {
+            do
             {
                 cartPage.DeleteItem();
-
-                WaitForElement((By)cartPage.deleteButton, 3, driver);
-                
-
+                //WaitForElement(By.CssSelector(cartPage.deleteButtonPath), 3, driver);
+                Thread.Sleep(1000);
             }
-            catch
-            {
-                Console.WriteLine("No items in the cart to delete");
-            }
-            
-        //}
+
+            //while (!cartPage.cartEmptyMessage.Displayed);
+            while (true);   //needs a proper condition inside
+        }
+        catch 
+        {
+            //Do nothing - cart is cleared
+        }
        
     }
 }

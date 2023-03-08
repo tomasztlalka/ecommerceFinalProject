@@ -36,10 +36,12 @@ internal class CartPage
 
     public IWebElement cartTotal => _driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.order-total > td > strong > span > bdi"));
 
-    public IWebElement cartEmptyMessage => _driver.FindElement(By.CssSelector("#post-5 > div > div > div > p"));
-     
+    public IWebElement cartEmptyMessage => _driver.FindElement(By.CssSelector("#post-5 > div > div > div"));
+
+    public IWebElement returnToShopButton => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p/a"));
     public string appliedCouponFieldPath=> "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-discount.coupon-edgewords > th";
 
+    public string deleteButtonPath => "#post-5 > div > div > form > table > tbody > tr.woocommerce-cart-form__cart-item.cart_item > td.product-remove > a";
     //Service Methods
 
     public void EnterCouponCode()
