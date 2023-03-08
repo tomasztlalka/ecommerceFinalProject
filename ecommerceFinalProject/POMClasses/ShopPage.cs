@@ -15,11 +15,10 @@ internal class ShopPage
         
     //Service Methods
 
-    public void AddItemToCart(string itemPathInCSS)
+    public void AddItemToCart()
     {
         _topNav.Shop.Click();
-        //TODO: Change XPath to Css
-        _driver.FindElement(By.XPath(itemPathInCSS)).Click();
+        _driver.FindElement(By.CssSelector(TestContext.Parameters["item_path"])).Click();
     }
 
     public void ViewCart()

@@ -1,11 +1,11 @@
 ﻿/*
 *Next steps:
-* TODO: figure out Locator strategy throughout the webpages that is more readable
 */
 
 public class TestBaseClass
 {
     public IWebDriver driver;
+
     
     [SetUp]
     public void Setup()
@@ -25,7 +25,7 @@ public class TestBaseClass
         login.SubmitForm();
 
         //Assert that the login was successful
-        Assert.That(myAccountPage.logoutTab.Displayed, "Can't find the logout button - not logged in");
+        Assert.That(myAccountPage.LogoutTab.Displayed, "Can't find the logout button - not logged in");
 
         //Attempt to delete all items from the cart before starting any tests
         ClearCart();   
@@ -44,7 +44,7 @@ public class TestBaseClass
         topNav.MyAccount.Click();
 
         //Logout done in TearDown as both test cases end by logging out
-        myAccountPage.logoutTab.Click();
+        myAccountPage.LogoutTab.Click();
         driver.Quit();
     }
 
@@ -63,18 +63,19 @@ public class TestBaseClass
             do
             {
                 cartPage.DeleteItem();
-                //WaitForElement(By.CssSelector(cartPage.deleteButtonPath), 3, driver);
+                //WaitForElement(By.CssSelector(cartPage.DeleteButtonPath), 3, driver);
                 Thread.Sleep(1000);
             }
 
             //while (!cartPage.cartEmptyMessage.Displayed);
             while (true);   //needs a proper condition inside
         }
-        catch 
+        catch
         {
             //Do nothing - cart is cleared
         }
-       
+
+
     }
 }
 

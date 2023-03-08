@@ -10,27 +10,27 @@ internal class LoginPage
     }
 
     //Locators
-    public IWebElement usernameField => _driver.FindElement(By.Id("username"));
-    public IWebElement passwordField => _driver.FindElement(By.Id("password"));
-    public IWebElement submitButton => _driver.FindElement(By.Name("login"));
+    public IWebElement UsernameField => _driver.FindElement(By.Id("username"));
+    public IWebElement PasswordField => _driver.FindElement(By.Id("password"));
+    public IWebElement SubmitButton => _driver.FindElement(By.Name("login"));
 
     //Service Methods
     public LoginPage SetUsername(string username)
     {
-        usernameField.Clear();
-        usernameField.SendKeys(username);
+        UsernameField.Clear();
+        UsernameField.SendKeys(username);
         return this;
     }
 
     public void SetPassword(string password)
     {
-        passwordField.Clear();
-        passwordField.SendKeys(password);
+        PasswordField.Clear();
+        PasswordField.SendKeys(password);
     }
 
     public void SubmitForm()
     {
-        submitButton.Click();
+        SubmitButton.Click();
     }
 
 }

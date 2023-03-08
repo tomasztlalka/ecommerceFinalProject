@@ -1,7 +1,5 @@
 
-
 [TestFixture]
-
 public class TestCase1 : TestBaseClass
 {
     [Test]
@@ -18,12 +16,11 @@ public class TestCase1 : TestBaseClass
         //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
         char[] charsToTrim = {'£'};
 
-        //TODO: Use TestContext.Parameters["item_Path"]
-        shopPage.AddItemToCart("//*[@id=\"main\"]/ul/li[3]/a[2]");
+        shopPage.AddItemToCart();
         shopPage.ViewCart();
 
         //Capture subtotal value from page and get values of parameters from the runsettings file
-        decimal subTotal = decimal.Parse((cartPage.subTotal.Text).Trim(charsToTrim));
+        decimal subTotal = decimal.Parse((cartPage.SubTotal.Text).Trim(charsToTrim));
         decimal fractionOfPriceAfterDiscount = 1 - decimal.Parse(TestContext.Parameters["discount_percentage"]);
         decimal shippingFee = decimal.Parse(TestContext.Parameters["shipping_fee"]);
 
@@ -35,7 +32,7 @@ public class TestCase1 : TestBaseClass
         cartPage.EnterCouponCode();        
         
         //Capture the actual total from page
-        decimal actualTotal = decimal.Parse((cartPage.cartTotal.Text).Trim(charsToTrim));
+        decimal actualTotal = decimal.Parse((cartPage.CartTotal.Text).Trim(charsToTrim));
         //Write to console for debugging purposes
         Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
         //Assert that the two totals are the same

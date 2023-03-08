@@ -20,44 +20,42 @@ internal class CartPage
     }
 
     //Locators
-       
-    public IWebElement siteFooter => _driver.FindElement(By.CssSelector("#colophon > div > div.site-info"));
 
-    public IWebElement proceedToCheckoutButton => _driver.FindElement(By.LinkText("Proceed to checkout"));
+    public IWebElement CouponField => _driver.FindElement(By.Name("coupon_code"));
 
+    public IWebElement ApplyButton => _driver.FindElement(By.Name("apply_coupon"));
 
-    public IWebElement deleteButton => _driver.FindElement(By.CssSelector("#post-5 > div > div > form > table > tbody > tr.woocommerce-cart-form__cart-item.cart_item > td.product-remove > a"));
+    public IWebElement ProceedToCheckoutButton => _driver.FindElement(By.LinkText("Proceed to checkout"));
 
-    public IWebElement couponField => _driver.FindElement(By.Name("coupon_code"));
+    public IWebElement SiteFooter => _driver.FindElement(By.CssSelector("div[class='site-info']"));
+    
+    public IWebElement DeleteButton => _driver.FindElement(By.CssSelector("a[class='remove']"));
 
-    public IWebElement applyButton => _driver.FindElement(By.Name("apply_coupon"));
+    public IWebElement SubTotal => _driver.FindElement(By.CssSelector("td[data-title='Subtotal']"));
 
-    public IWebElement subTotal => _driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-subtotal > td > span"));
+    public IWebElement CartTotal => _driver.FindElement(By.CssSelector("td[data-title='Total']"));
 
-    public IWebElement cartTotal => _driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.order-total > td > strong > span > bdi"));
+    public IWebElement CartEmptyMessage => _driver.FindElement(By.CssSelector("div[class='woocommerce-notices-wrapper']"));
 
-    public IWebElement cartEmptyMessage => _driver.FindElement(By.CssSelector("#post-5 > div > div > div"));
+    public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
-    public IWebElement returnToShopButton => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p/a"));
-    public string appliedCouponFieldPath=> "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-discount.coupon-edgewords > th";
-
-    public string deleteButtonPath => "#post-5 > div > div > form > table > tbody > tr.woocommerce-cart-form__cart-item.cart_item > td.product-remove > a";
+    public string DeleteButtonPath => "a[class='remove']";  //remove
     //Service Methods
 
     public void EnterCouponCode()
     {
         //Wait for the coupon code text box to appear
         WaitForElement(By.Name("coupon_code"), 2, _driver);
-        couponField.SendKeys(TestContext.Parameters["edgewords_coupon"]);
-        applyButton.Click();
+        CouponField.SendKeys(TestContext.Parameters["edgewords_coupon"]);
+        ApplyButton.Click();
 
         //Wait for the coupon to get applied before proceeding further
-        WaitForElement(By.CssSelector(appliedCouponFieldPath), 2, _driver);
+        WaitForElement(By.CssSelector("tr[class='cart-discount coupon-edgewords']"), 2, _driver);
     }
 
     public void DeleteItem()
     {
-        deleteButton.Click();
+        DeleteButton.Click();
     }
 
     public void ScrollToElement(IWebElement element)

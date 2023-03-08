@@ -9,30 +9,30 @@ internal class CheckoutPage
     }
 
     //Locators
-    public IWebElement firstName => _driver.FindElement(By.Id("billing_first_name"));
-    public IWebElement lastName => _driver.FindElement(By.Id("billing_last_name"));
-    public IWebElement billingAddress => _driver.FindElement(By.Id("billing_address_1"));
-    public IWebElement city => _driver.FindElement(By.Id("billing_city"));
-    public IWebElement postcode => _driver.FindElement(By.Id("billing_postcode"));
-    public IWebElement phone => _driver.FindElement(By.Id("billing_first_name"));
-    public IWebElement placeOrderButton => _driver.FindElement(By.CssSelector("#place_order"));
+    public IWebElement FirstName => _driver.FindElement(By.Id("billing_first_name"));
+    public IWebElement LastName => _driver.FindElement(By.Id("billing_last_name"));
+    public IWebElement BillingAddress => _driver.FindElement(By.Id("billing_address_1"));
+    public IWebElement City => _driver.FindElement(By.Id("billing_city"));
+    public IWebElement Postcode => _driver.FindElement(By.Id("billing_postcode"));
+    public IWebElement Phone => _driver.FindElement(By.Id("billing_first_name"));
+    public IWebElement PlaceOrderButton => _driver.FindElement(By.CssSelector("#place_order"));
 
     //Service Methods
     public CheckoutPage FillBillingDetails()
     {
-        firstName.Clear();
-        lastName.Clear();
-        billingAddress.Clear();
-        city.Clear();
-        postcode.Clear();
-        phone.Clear();
+        FirstName.Clear();
+        LastName.Clear();
+        BillingAddress.Clear();
+        City.Clear();
+        Postcode.Clear();
+        Phone.Clear();
 
-        firstName.SendKeys(TestContext.Parameters["first_name"]);
-        lastName.SendKeys(TestContext.Parameters["last_name"]);
-        billingAddress.SendKeys(TestContext.Parameters["address_1"]);
-        city.SendKeys(TestContext.Parameters["city"]);
-        postcode.SendKeys(TestContext.Parameters["postcode"]);
-        phone.SendKeys(TestContext.Parameters["phone"]);
+        FirstName.SendKeys(TestContext.Parameters["first_name"]);
+        LastName.SendKeys(TestContext.Parameters["last_name"]);
+        BillingAddress.SendKeys(TestContext.Parameters["address_1"]);
+        City.SendKeys(TestContext.Parameters["city"]);
+        Postcode.SendKeys(TestContext.Parameters["postcode"]);
+        Phone.SendKeys(TestContext.Parameters["phone"]);
         Thread.Sleep(500);
 
         return this;
@@ -40,9 +40,10 @@ internal class CheckoutPage
 
     public void SubmitOrder()
     {
-        placeOrderButton.Click();
+        PlaceOrderButton.Click();
         //Wait for order number to appear on page
-        WaitForElement(By.CssSelector("#post-6 > div > div > div > ul > li.woocommerce-order-overview__order.order > strong"), 3, _driver);
+        WaitForElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"), 3, _driver);
+        
 
     }
 

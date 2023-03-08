@@ -11,6 +11,6 @@ internal class OrderReceivedPage
     }
 
     //Locators
-    public IWebElement displayedOrderNumber => _driver.FindElement(By.CssSelector("#post-6 > div > div > div > ul > li.woocommerce-order-overview__order.order > strong"));
+    public IWebElement DisplayedOrderNumber => _driver.FindElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"));
 }
 

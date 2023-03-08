@@ -3,7 +3,7 @@
 	<TestRunParameters>
 		
 		<Parameter name="browser" value="" />
-		<Parameter name="item_path" value="" />
+		<Parameter name="item_path" value="a[data-product_id='29']" />
 		
 		<Parameter name="baseURL" value="https://www.edgewordstraining.co.uk/demo-site/" />
 		<Parameter name="username" value="tomasz.tlalka@nfocus.co.uk" />
