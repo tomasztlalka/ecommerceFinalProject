@@ -1,4 +1,5 @@
-﻿
+﻿namespace ecommerceFinalProject.POMClasses
+{
     class TopNav
     {
         private IWebDriver _driver;
@@ -17,5 +18,6 @@
 
 
 
+    }
 }
 
