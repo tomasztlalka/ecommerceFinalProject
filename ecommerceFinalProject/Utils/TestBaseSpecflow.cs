@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using System.Configuration;
+using TechTalk.SpecFlow;
 
 namespace ecommerceFinalProject.Utils
 {
@@ -62,20 +63,17 @@ namespace ecommerceFinalProject.Utils
 
             topNav.Cart.Click();
 
-            //TODO: This needs fixing
             try
             {
-                do
+                //while (cartPage.CartEmptyMessage.Displayed)
+                while (true) 
                 {
                     cartPage.DeleteItem();
                     //WaitForElement(By.CssSelector(cartPage.DeleteButtonPath), 3, driver);
                     Thread.Sleep(1000);
                 }
-
-                //while (!cartPage.cartEmptyMessage.Displayed);
-                while (true);   //needs a proper condition inside
             }
-            catch
+            catch 
             {
                 //Do nothing - cart is cleared
             }

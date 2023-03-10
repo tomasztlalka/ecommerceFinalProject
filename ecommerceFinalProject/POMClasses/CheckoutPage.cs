@@ -34,7 +34,8 @@
             City.SendKeys(TestContext.Parameters["city"]);
             Postcode.SendKeys(TestContext.Parameters["postcode"]);
             Phone.SendKeys(TestContext.Parameters["phone"]);
-            Thread.Sleep(500);
+       
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0.5);
 
             return this;
         }
