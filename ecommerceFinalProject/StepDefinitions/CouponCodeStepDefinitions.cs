@@ -1,11 +1,10 @@
-using TechTalk.SpecFlow;
 using static ecommerceFinalProject.Utils.TestBaseSpecflow;
 
 namespace ecommerceFinalProject.StepDefinitions
 {
 
     [Binding]
-    public class Feature1StepDefinitions
+    public class CouponCodeStepDefinitions
     {
         NumberFormatInfo setPrecision = new NumberFormatInfo();
         TopNav topNav = new TopNav(driver);
@@ -35,12 +34,16 @@ namespace ecommerceFinalProject.StepDefinitions
             decimal fractionOfPriceAfterDiscount = 1 - decimal.Parse(TestContext.Parameters["discount_percentage"]);
             decimal shippingFee = decimal.Parse(TestContext.Parameters["shipping_fee"]);
 
+            //Scrolling down to 'prepare' for a screenshot
+            ScrollToElement(driver, cartPage.SiteFooter);
+
             //Work out the expected total
             expectedTotal = (subTotal * fractionOfPriceAfterDiscount) + shippingFee;
             //Write to console for debugging purposes
             Console.WriteLine("The expected total is: " + expectedTotal.ToString("N", setPrecision));
 
             cartPage.EnterCouponCode();
+            
         }
 
 
@@ -53,6 +56,9 @@ namespace ecommerceFinalProject.StepDefinitions
             Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
             //Assert that the two totals are the same
             Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");
+
+            //Take a screenshot of the 'cart_totals' element and save it as a PNG image
+            TakeScreenshotOfElement(driver, By.CssSelector("div[class='cart_totals']"), "test1_carttotals.png");
         }
 
 

@@ -1,42 +1,42 @@
-using System;
-using TechTalk.SpecFlow;
 using static ecommerceFinalProject.Utils.TestBaseSpecflow;
-using ecommerceFinalProject.POMClasses;
 
 namespace ecommerceFinalProject.StepDefinitions
 {
     [Binding]
-    public class Feature2StepDefinitions
+    public class OrderNumbersStepDefinitions
     {
+        //Initialise instances of POM classes
         TopNav topNav = new TopNav(driver);
         CheckoutPage checkout = new CheckoutPage(driver);
         CartPage cartPage = new CartPage(driver);
         OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         MyAccountPage myAccountPage = new MyAccountPage(driver);
 
-
         [When(@"I successfully complete checkout")]
         public void WhenISuccessfullyCompleteCheckout()
         {
-            //TODO: See if this can be done differently (not instantiating all the classes in every test?)
             ShopPage shopPage = new ShopPage(driver, topNav);
 
             shopPage.AddItemToCart();
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
-            cartPage.ScrollToElement(cartPage.SiteFooter);
+            ScrollToElement(driver, cartPage.SiteFooter);
             cartPage.ProceedToCheckoutButton.Click();
 
             checkout.FillBillingDetails();
             checkout.SubmitOrder();
         }
 
-        [Then(@"order number shown after checkout matches the one in '([^']*)' page")]
-        public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInPage(string orders)
+        [Then(@"order number shown after checkout matches the one in Orders page")]
+        public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
             //Capture the initial order number
             string orderNumber1 = "#" + orderReceivedPage.DisplayedOrderNumber.Text;
+
+            //Take a screenshot of the initial order number displayed right after the checkout page
+            TakeScreenshotOfElement(driver, By.CssSelector("div[class='woocommerce-order']"), "test2_initialorder.png");
+
             //Write the initial order number to console for debugging purposes
             Console.WriteLine("Your order number is " + orderNumber1);
 
@@ -46,6 +46,10 @@ namespace ecommerceFinalProject.StepDefinitions
             myAccountPage.OrdersTab.Click();
             string orderNumber2 = myAccountPage.OrderNumber.Text;
 
+            //Take a screenshot of the order number present in the 'Orders' tab
+            TakeScreenshotOfElement(driver, By.CssSelector("tbody >tr"), "test2_secondorder.png");
+
+            //Write the order number from 'Orders' tab to console for debugging purposes
             Console.WriteLine("Your order number from 'Orders' is " + orderNumber2);
             Assert.That(orderNumber1 == orderNumber2, "Order number does not match");
         }

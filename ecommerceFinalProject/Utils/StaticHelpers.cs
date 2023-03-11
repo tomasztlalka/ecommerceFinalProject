@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium.Interactions;
+
 
 namespace ecommerceFinalProject.Utils
 {
@@ -24,9 +21,16 @@ namespace ecommerceFinalProject.Utils
             IWebElement form = driver.FindElement(locator);
             ITakesScreenshot formss = form as ITakesScreenshot;
             var screenshotForm = formss.GetScreenshot();
-            screenshotForm.SaveAsFile(@"D:\screenshots\" + filename, ScreenshotImageFormat.Png);
-            TestContext.WriteLine("Screenshot taken - see report");
-            TestContext.AddTestAttachment(@"D:\screenshots\" + filename);
+            screenshotForm.SaveAsFile(@"C:\screenshots\" + filename, ScreenshotImageFormat.Png);            
+        }
+
+
+        //A method for scrolling to a specific web element
+        public static void ScrollToElement(IWebDriver driver, IWebElement element)
+        {
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element).Perform();
+
         }
     }
 }

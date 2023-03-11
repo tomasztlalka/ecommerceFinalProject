@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using TechTalk.SpecFlow;
 
 namespace ecommerceFinalProject.Utils
 {

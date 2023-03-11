@@ -8,4 +8,4 @@ A short summary of the feature
 @SecondTest
 Scenario: Verify order number
 	When I successfully complete checkout
-	Then order number shown after checkout matches the one in 'Orders' page
+	Then order number shown after checkout matches the one in Orders page

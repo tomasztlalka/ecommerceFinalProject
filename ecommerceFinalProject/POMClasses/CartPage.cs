@@ -1,12 +1,4 @@
-﻿using OpenQA.Selenium.Interactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace ecommerceFinalProject.POMClasses
+﻿namespace ecommerceFinalProject.POMClasses
 {
     internal class CartPage
     {
@@ -59,14 +51,7 @@ namespace ecommerceFinalProject.POMClasses
             DeleteButton.Click();
         }
 
-        public void ScrollToElement(IWebElement element)
-        {
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(element).Perform();
-
-        }
-
-
+        
     }
 
 }

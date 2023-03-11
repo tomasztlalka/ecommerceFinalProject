@@ -35,7 +35,7 @@
             Postcode.SendKeys(TestContext.Parameters["postcode"]);
             Phone.SendKeys(TestContext.Parameters["phone"]);
        
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0.5);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0.7);
 
             return this;
         }

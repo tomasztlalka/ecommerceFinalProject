@@ -14,3 +14,4 @@ global using System.Security.Cryptography;
 global using System.Globalization;
 global using NUnit.Framework.Internal;
 global using ecommerceFinalProject.POMClasses;
+global using TechTalk.SpecFlow;
