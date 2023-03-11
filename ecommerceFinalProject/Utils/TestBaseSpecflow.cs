@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Firefox;
+﻿using ecommerceFinalProject.POMClasses;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using System.Configuration;
 
 namespace ecommerceFinalProject.Utils
@@ -15,14 +17,21 @@ namespace ecommerceFinalProject.Utils
 
         public void SetUp()
         {
+            
             //driver = new FirefoxDriver();
-            driver = new ChromeDriver();
+            //driver = new ChromeDriver();
+            driver = new EdgeDriver();
             driver.Manage().Window.Maximize();
             driver.Url = TestContext.Parameters["baseURL"];
+            
 
             TopNav topNav = new TopNav(driver);
             LoginPage login = new LoginPage(driver);
             MyAccountPage myAccountPage = new MyAccountPage(driver);
+            CartPage cartPage = new CartPage(driver);
+
+            //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
+            cartPage.DismissButton.Click();
 
             topNav.MyAccount.Click();
 

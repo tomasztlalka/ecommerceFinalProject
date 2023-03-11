@@ -45,8 +45,10 @@ namespace ecommerceFinalProject.POMClasses
         public void SubmitOrder()
         {
             //Workaround the blockUI blockOverlay displayed in Firefox
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
             var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[class='blockUI blockOverlay']")));
+            
+
 
             PlaceOrderButton.Click();
             //Wait for order number to appear on page

@@ -21,7 +21,6 @@ namespace ecommerceFinalProject.StepDefinitions
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
-            cartPage.DismissButton.Click();
             ScrollToElement(driver, cartPage.SiteFooter);
             cartPage.ProceedToCheckoutButton.Click();
 
@@ -38,7 +37,7 @@ namespace ecommerceFinalProject.StepDefinitions
             //Take a screenshot of the initial order number displayed right after the checkout page
             TakeScreenshotOfElement(driver, By.CssSelector("div[class='woocommerce-order']"), "test2_initialorder.png");
 
-            //Write the initial order number to console for debugging purposes
+            //Write the initial order number to console
             Console.WriteLine("Your order number is " + orderNumber1);
 
             topNav.MyAccount.Click();
@@ -50,7 +49,7 @@ namespace ecommerceFinalProject.StepDefinitions
             //Take a screenshot of the order number present in the 'Orders' tab
             TakeScreenshotOfElement(driver, By.CssSelector("tbody >tr"), "test2_secondorder.png");
 
-            //Write the order number from 'Orders' tab to console for debugging purposes
+            //Write the order number from 'Orders' tab to console
             Console.WriteLine("Your order number from 'Orders' is " + orderNumber2);
             Assert.That(orderNumber1 == orderNumber2, "Order number does not match");
         }

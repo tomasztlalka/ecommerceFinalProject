@@ -33,10 +33,9 @@
         public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
         public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
-        
 
-        public string DeleteButtonPath => "a[class='remove']";  //remove
-                                                                //Service Methods
+        
+        //Service Methods
 
         public void EnterCouponCode()
         {
