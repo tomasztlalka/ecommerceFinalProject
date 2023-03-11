@@ -1,4 +1,6 @@
-﻿namespace ecommerceFinalProject.POMClasses
+﻿using OpenQA.Selenium.Support.UI;
+
+namespace ecommerceFinalProject.POMClasses
 {
     internal class CheckoutPage
     {
@@ -42,6 +44,10 @@
 
         public void SubmitOrder()
         {
+            //Workaround the blockUI blockOverlay displayed in Firefox
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+            var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[class='blockUI blockOverlay']")));
+
             PlaceOrderButton.Click();
             //Wait for order number to appear on page
             WaitForElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"), 3, _driver);

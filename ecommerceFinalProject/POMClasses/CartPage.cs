@@ -20,7 +20,7 @@
 
         public IWebElement ProceedToCheckoutButton => _driver.FindElement(By.LinkText("Proceed to checkout"));
 
-        public IWebElement SiteFooter => _driver.FindElement(By.CssSelector("div[class='site-info']"));
+        public IWebElement SiteFooter => _driver.FindElement(By.CssSelector("div[class='col-full']"));
 
         public IWebElement DeleteButton => _driver.FindElement(By.CssSelector("a[class='remove']"));
 
@@ -31,6 +31,9 @@
         public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
 
         public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
+
+        public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
+        
 
         public string DeleteButtonPath => "a[class='remove']";  //remove
                                                                 //Service Methods

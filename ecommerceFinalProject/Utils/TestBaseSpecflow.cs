@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using OpenQA.Selenium.Firefox;
+using System.Configuration;
 
 namespace ecommerceFinalProject.Utils
 {
@@ -14,6 +15,7 @@ namespace ecommerceFinalProject.Utils
 
         public void SetUp()
         {
+            //driver = new FirefoxDriver();
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Url = TestContext.Parameters["baseURL"];

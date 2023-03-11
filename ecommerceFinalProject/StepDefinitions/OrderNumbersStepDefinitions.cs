@@ -21,6 +21,7 @@ namespace ecommerceFinalProject.StepDefinitions
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
+            cartPage.DismissButton.Click();
             ScrollToElement(driver, cartPage.SiteFooter);
             cartPage.ProceedToCheckoutButton.Click();
 
