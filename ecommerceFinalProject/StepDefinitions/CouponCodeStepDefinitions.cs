@@ -23,9 +23,6 @@ namespace ecommerceFinalProject.StepDefinitions
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
-            //Defining decimal point precision
-            setPrecision.NumberDecimalDigits = 2;
-
             shopPage.AddItemToCart();
 
             //ViewCart proceeds to cartPage
@@ -38,7 +35,10 @@ namespace ecommerceFinalProject.StepDefinitions
 
             //Work out the expected total
             expectedTotal = (subTotal * fractionOfPriceAfterDiscount) + shippingFee;
-            //Write to console for debugging purposes
+
+            //Defining decimal point precision to format output in the console
+            setPrecision.NumberDecimalDigits = 2;
+            //Write the total to console for debugging purposes
             Console.WriteLine("The expected total is: " + expectedTotal.ToString("N", setPrecision));
                      
             cartPage.EnterCouponCode();
@@ -52,12 +52,12 @@ namespace ecommerceFinalProject.StepDefinitions
             //Scrolling down to 'prepare' for a screenshot
             ScrollToElement(driver, cartPage.SiteFooter);
             Thread.Sleep(1000);
-            //Take a screenshot of the 'cart_totals' element and save it as a PNG image
+            //Take a screenshot of the 'cart_totals' element and save it
             TakeScreenshotOfElement(driver, By.CssSelector("div[class='cart_totals']"), "test1_carttotals.png");
 
             //Capture the actual total from page
             actualTotal = decimal.Parse((cartPage.CartTotal.Text).Trim(charsToTrim));
-            //Write to console for debugging purposes
+            //Write the total to console for debugging purposes
             Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
             //Assert that the two totals are the same
             Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");

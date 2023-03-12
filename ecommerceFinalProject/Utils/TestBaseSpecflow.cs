@@ -19,7 +19,7 @@ namespace ecommerceFinalProject.Utils
 
         public void SetUp()
         {
-            //Instantiate driver based on value in runsettings
+            //Instantiate driver based on string value in runsettings
             string driverTest = TestContext.Parameters["browser"];
             switch (driverTest)
             {

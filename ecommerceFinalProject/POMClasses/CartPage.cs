@@ -41,7 +41,7 @@
         {
             //Wait for the coupon code text box to appear
             WaitForElement(By.Name("coupon_code"), 2, _driver);
-            CouponField.SendKeys(TestContext.Parameters["edgewords_coupon"]);
+            CouponField.SendKeys(TestContext.Parameters["coupon"]);
             ApplyButton.Click();
 
             //Wait for the coupon to get applied before proceeding further
