@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Interactions;
+﻿using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
 
 
 namespace ecommerceFinalProject.Utils
@@ -32,5 +34,6 @@ namespace ecommerceFinalProject.Utils
             actions.MoveToElement(element).Perform();
 
         }
+
     }
 }

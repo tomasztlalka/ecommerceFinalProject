@@ -1,7 +1,9 @@
 ﻿using ecommerceFinalProject.POMClasses;
+using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using System.Configuration;
+
 
 namespace ecommerceFinalProject.Utils
 {
@@ -17,10 +19,25 @@ namespace ecommerceFinalProject.Utils
 
         public void SetUp()
         {
-            
-            //driver = new FirefoxDriver();
-            //driver = new ChromeDriver();
-            driver = new EdgeDriver();
+            //Instantiate driver based on value in runsettings
+            string driverTest = TestContext.Parameters["browser"];
+            switch (driverTest)
+            {
+                case "Chrome":
+                    driver = new ChromeDriver();
+                    break;
+                case "Firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                case "Edge":
+                    driver = new EdgeDriver();
+                    break;
+                default:
+                    driver = new ChromeDriver();
+                    break;
+            }
+
+
             driver.Manage().Window.Maximize();
             driver.Url = TestContext.Parameters["baseURL"];
             
