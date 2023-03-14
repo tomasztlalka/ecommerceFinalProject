@@ -12,11 +12,8 @@ namespace ecommerceFinalProject.StepDefinitions
 
         //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
         char[] charsToTrim = { '£' };
-
         decimal expectedTotal;
         decimal actualTotal;
-
-
 
         [When(@"I apply a discount code during checkout")]
         public void WhenIApplyADiscountCodeDuringCheckout()
@@ -50,17 +47,17 @@ namespace ecommerceFinalProject.StepDefinitions
         public void ThenTheTotalAmountIsCorrectlyReduced()
         {
             //Scrolling down to 'prepare' for a screenshot
-            ScrollToElement(driver, cartPage.SiteFooter);
+            ScrollToElement(cartPage.SiteFooter);
             Thread.Sleep(1000);
             //Take a screenshot of the 'cart_totals' element and save it
-            TakeScreenshotOfElement(driver, By.CssSelector("div[class='cart_totals']"), "test1_carttotals.png");
+            TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
 
             //Capture the actual total from page
             actualTotal = decimal.Parse((cartPage.CartTotal.Text).Trim(charsToTrim));
             //Write the total to console for debugging purposes
             Console.WriteLine("The actual total is: " + actualTotal.ToString("N", setPrecision));
             //Assert that the two totals are the same
-            Assert.That(expectedTotal == actualTotal, "Actual total different than expected total");
+            Assert.That(expectedTotal, Is.EqualTo(actualTotal), "Actual total different than expected");
 
             
         }

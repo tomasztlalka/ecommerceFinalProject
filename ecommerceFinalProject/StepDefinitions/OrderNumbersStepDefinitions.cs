@@ -21,7 +21,7 @@ namespace ecommerceFinalProject.StepDefinitions
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
-            ScrollToElement(driver, cartPage.SiteFooter);
+            ScrollToElement(cartPage.SiteFooter);
             cartPage.ProceedToCheckoutButton.Click();
 
             checkout.FillBillingDetails();
@@ -32,26 +32,26 @@ namespace ecommerceFinalProject.StepDefinitions
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
             //Capture the initial order number
-            string orderNumber1 = "#" + orderReceivedPage.DisplayedOrderNumber.Text;
+            string orderNumberAtCheckout = "#" + orderReceivedPage.DisplayedOrderNumber.Text;
 
             //Take a screenshot of the initial order number displayed right after the checkout page
-            TakeScreenshotOfElement(driver, By.CssSelector("div[class='woocommerce-order']"), "test2_initialorder.png");
+            TakeScreenshotOfElement("div[class='woocommerce-order']", "test2_initialorder");
 
             //Write the initial order number to console
-            Console.WriteLine("Your order number is " + orderNumber1);
+            Console.WriteLine("Your order number is " + orderNumberAtCheckout);
 
             topNav.MyAccount.Click();
 
             //Navigate to 'Orders' tab on 'My account' page
             myAccountPage.OrdersTab.Click();
-            string orderNumber2 = myAccountPage.OrderNumber.Text;
+            string orderNumberFromHistory = myAccountPage.OrderNumber.Text;
 
             //Take a screenshot of the order number present in the 'Orders' tab
-            TakeScreenshotOfElement(driver, By.CssSelector("tbody >tr"), "test2_secondorder.png");
+            TakeScreenshotOfElement("tbody >tr", "test2_secondorder");
 
             //Write the order number from 'Orders' tab to console
-            Console.WriteLine("Your order number from 'Orders' is " + orderNumber2);
-            Assert.That(orderNumber1 == orderNumber2, "Order number does not match");
+            Console.WriteLine("Your order number from 'Orders' is " + orderNumberFromHistory);
+            Assert.That(orderNumberAtCheckout, Is.EqualTo(orderNumberFromHistory), "Order number does not match");
         }
     }
 }

@@ -18,19 +18,19 @@ namespace ecommerceFinalProject.Utils
 
         
 
-        public static void TakeScreenshotOfElement(IWebDriver driver, By locator, string filename)
+        public static void TakeScreenshotOfElement(string locator, string filename)
         {
-            IWebElement form = driver.FindElement(locator);
+            IWebElement form = TestBaseSpecflow.driver.FindElement(By.CssSelector(locator));
             ITakesScreenshot formss = form as ITakesScreenshot;
             var screenshotForm = formss.GetScreenshot();
-            screenshotForm.SaveAsFile(@"C:\screenshots\" + filename, ScreenshotImageFormat.Png);            
+            screenshotForm.SaveAsFile(@"C:\screenshots\" + filename + ".png", ScreenshotImageFormat.Png);            
         }
 
 
         //A method for scrolling to a specific web element
-        public static void ScrollToElement(IWebDriver driver, IWebElement element)
+        public static void ScrollToElement(IWebElement element)
         {
-            Actions actions = new Actions(driver);
+            Actions actions = new Actions(TestBaseSpecflow.driver);
             actions.MoveToElement(element).Perform();
 
         }
