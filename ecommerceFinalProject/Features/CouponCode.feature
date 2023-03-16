@@ -2,15 +2,12 @@
 
 A short summary of the feature
 
-#Background: 
-#	Given I am logged in as a user
-
-#Add parameterisation to features
-#Be more specific with steps 
+Background: 
+	Given I am logged in as a user
 
 @FirstTest
 Scenario: Apply discount coupon
-	When I apply a discount code during checkout
-	Then the total amount is correctly reduced
+	When I apply the 'edgewords' coupon code during checkout
+	Then the total amount is reduced by '15%'
 
 

@@ -20,7 +20,7 @@
 
         public IWebElement ProceedToCheckoutButton => _driver.FindElement(By.LinkText("Proceed to checkout"));
 
-        public IWebElement SiteFooter => _driver.FindElement(By.CssSelector("div[class='col-full']"));
+        public IWebElement SiteFooter => _driver.FindElement(By.CssSelector("#colophon > div > div.site-info"));
 
         public IWebElement DeleteButton => _driver.FindElement(By.CssSelector("a[class='remove']"));
 

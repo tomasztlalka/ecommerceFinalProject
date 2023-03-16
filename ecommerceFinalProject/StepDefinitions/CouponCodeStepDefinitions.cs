@@ -1,3 +1,4 @@
+using OpenQA.Selenium;
 using static ecommerceFinalProject.Utils.TestBaseSpecflow;
 
 namespace ecommerceFinalProject.StepDefinitions
@@ -15,7 +16,7 @@ namespace ecommerceFinalProject.StepDefinitions
         decimal expectedTotal;
         decimal actualTotal;
 
-        [When(@"I apply a discount code during checkout")]
+        [When(@"I apply the 'edgewords' coupon code during checkout")]
         public void WhenIApplyADiscountCodeDuringCheckout()
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
@@ -43,12 +44,17 @@ namespace ecommerceFinalProject.StepDefinitions
         }
 
 
-        [Then(@"the total amount is correctly reduced")]
+        [Then(@"the total amount is reduced by '15%'")]
         public void ThenTheTotalAmountIsCorrectlyReduced()
         {
+            //Thread.Sleep(3000);
             //Scrolling down to 'prepare' for a screenshot
-            ScrollToElement(cartPage.SiteFooter);
-            Thread.Sleep(1000);
+            ScrollToBottom();
+            //ScrollToElement(cartPage.SiteFooter);
+            //Thread.Sleep(1000);
+
+            
+
             //Take a screenshot of the 'cart_totals' element and save it
             TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
 

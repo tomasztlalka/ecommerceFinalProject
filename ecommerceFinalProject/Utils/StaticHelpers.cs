@@ -35,5 +35,15 @@ namespace ecommerceFinalProject.Utils
 
         }
 
+        
+        /// Scrolls to the page's bottom using javascript
+        public static void ScrollToBottom()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)TestBaseSpecflow.driver;
+            string title = (string)js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            
+        }
+
+
     }
 }
