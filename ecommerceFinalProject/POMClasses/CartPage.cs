@@ -28,7 +28,7 @@
 
         public IWebElement CartTotal => _driver.FindElement(By.CssSelector("td[data-title='Total']"));
 
-        public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
+        //public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
 
         public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
@@ -53,7 +53,34 @@
             DeleteButton.Click();
         }
 
-        
+        //Method for navigating to the Cart and removing any item that is in it
+        public void ClearCart()
+        {
+            TopNav topNav = new TopNav(_driver);
+            CartPage cartPage = new CartPage(_driver);
+
+
+            topNav.Cart.Click();
+
+            try
+            {
+                //while (cartPage.CartEmptyMessage.Displayed)
+                while (true)
+                {
+                    cartPage.DeleteItem();
+                    //WaitForElement(By.CssSelector(cartPage.DeleteButtonPath), 3, driver);
+                    Thread.Sleep(1000);
+                }
+            }
+            catch
+            {
+                //Do nothing - cart is cleared
+            }
+
+
+        }
+
+
     }
 
 }

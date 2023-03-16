@@ -27,11 +27,11 @@ namespace ecommerceFinalProject.StepDefinitions
 
             //Capture subtotal value from page and get values of parameters from the runsettings file
             decimal subTotal = decimal.Parse((cartPage.SubTotal.Text).Trim(charsToTrim));
-            decimal fractionOfPriceAfterDiscount = 1 - decimal.Parse(TestContext.Parameters["discount_percentage"]);
+            decimal discountAsFloat = (decimal.Parse(TestContext.Parameters["discount_percentage"])) / 100;
             decimal shippingFee = decimal.Parse(TestContext.Parameters["shipping_fee"]);
 
             //Work out the expected total
-            expectedTotal = (subTotal * fractionOfPriceAfterDiscount) + shippingFee;
+            expectedTotal = (subTotal * (1 - discountAsFloat)) + shippingFee;
 
             //Defining decimal point precision to format output in the console
             setPrecision.NumberDecimalDigits = 2;

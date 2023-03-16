@@ -20,16 +20,16 @@ namespace ecommerceFinalProject.Utils
         public void SetUp()
         {
             //Instantiate driver based on string value in runsettings
-            string driverTest = TestContext.Parameters["browser"];
+            string driverTest = TestContext.Parameters["browser"].ToLower();
             switch (driverTest)
             {
-                case "Chrome":
+                case "chrome":
                     driver = new ChromeDriver();
                     break;
-                case "Firefox":
+                case "firefox":
                     driver = new FirefoxDriver();
                     break;
-                case "Edge":
+                case "edge":
                     driver = new EdgeDriver();
                     break;
                 default:
@@ -60,7 +60,7 @@ namespace ecommerceFinalProject.Utils
             Assert.That(myAccountPage.LogoutTab.Displayed, "Can't find the logout button - not logged in");
 
             //Attempt to delete all items from the cart before starting any tests
-            ClearCart();
+            cartPage.ClearCart();
         }
 
 
@@ -69,10 +69,10 @@ namespace ecommerceFinalProject.Utils
         {
             TopNav topNav = new TopNav(driver);
             MyAccountPage myAccountPage = new MyAccountPage(driver);
-
+            CartPage cartPage = new CartPage(driver);
 
             //Attempt to delete all items from the cart after every test is run
-            ClearCart();
+            cartPage.ClearCart();
 
             topNav.MyAccount.Click();
 
@@ -80,34 +80,6 @@ namespace ecommerceFinalProject.Utils
             myAccountPage.LogoutTab.Click();
             driver.Quit();
         }
-
-        //Method for navigating to the Cart and removing any item
-        public void ClearCart()
-        {
-            TopNav topNav = new TopNav(driver);
-            CartPage cartPage = new CartPage(driver);
-
-
-            topNav.Cart.Click();
-
-            try
-            {
-                //while (cartPage.CartEmptyMessage.Displayed)
-                while (true) 
-                {
-                    cartPage.DeleteItem();
-                    //WaitForElement(By.CssSelector(cartPage.DeleteButtonPath), 3, driver);
-                    Thread.Sleep(1000);
-                }
-            }
-            catch 
-            {
-                //Do nothing - cart is cleared
-            }
-
-
-        }
-
     }
 }
 
