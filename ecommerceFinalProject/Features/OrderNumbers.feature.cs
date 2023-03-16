@@ -84,11 +84,11 @@ namespace ecommerceFinalProject.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify order number")]
-        [NUnit.Framework.CategoryAttribute("SecondTest")]
+        [NUnit.Framework.CategoryAttribute("PurchasingItems")]
         public void VerifyOrderNumber()
         {
             string[] tagsOfScenario = new string[] {
-                    "SecondTest"};
+                    "PurchasingItems"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify order number", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9

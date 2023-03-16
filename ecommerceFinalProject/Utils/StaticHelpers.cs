@@ -36,7 +36,7 @@ namespace ecommerceFinalProject.Utils
         }
 
         
-        /// Scrolls to the page's bottom using javascript
+        // Scrolls to the page's bottom using javascript
         public static void ScrollToBottom()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)TestBaseSpecflow.driver;

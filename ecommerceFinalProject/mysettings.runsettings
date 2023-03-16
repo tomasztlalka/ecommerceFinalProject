@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
 	<TestRunParameters>
-		
-		<Parameter name="browser" value="chrome" />
-		<Parameter name="item_path" value="a[data-product_id='29']" />
+		<Parameter name="browser" value="edge" />
+		<Parameter name="item" value="Sunglasses" />
 		<Parameter name="baseURL" value="https://www.edgewordstraining.co.uk/demo-site/" />
 		<Parameter name="username" value="tomasz.tlalka@nfocus.co.uk" />
 		<Parameter name="password" value="Edgewords420Training" />

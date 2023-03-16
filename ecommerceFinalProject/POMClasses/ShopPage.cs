@@ -19,7 +19,16 @@
         public void AddItemToCart()
         {
             _topNav.Shop.Click();
-            _driver.FindElement(By.CssSelector(TestContext.Parameters["item_path"])).Click();
+            string Item = TestContext.Parameters["item"];
+
+            //if (Item == "random" || Item == null)
+            //{
+            //    Item = "";
+            //}
+            //TODO: write a "random" item case too
+
+            _driver.FindElement(By.CssSelector("a[aria-label='Add “" + Item + "” to your cart']")).Click();
+            
         }
 
         public void ViewCart()

@@ -84,11 +84,11 @@ namespace ecommerceFinalProject.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Apply discount coupon")]
-        [NUnit.Framework.CategoryAttribute("FirstTest")]
+        [NUnit.Framework.CategoryAttribute("PurchasingItems")]
         public void ApplyDiscountCoupon()
         {
             string[] tagsOfScenario = new string[] {
-                    "FirstTest"};
+                    "PurchasingItems"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply discount coupon", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 9

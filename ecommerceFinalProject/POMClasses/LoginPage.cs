@@ -16,11 +16,10 @@
         public IWebElement SubmitButton => _driver.FindElement(By.Name("login"));
 
         //Service Methods
-        public LoginPage SetUsername(string username)
+        public void SetUsername(string username)
         {
             UsernameField.Clear();
             UsernameField.SendKeys(username);
-            return this;
         }
 
         public void SetPassword(string password)
