@@ -20,10 +20,17 @@ namespace ecommerceFinalProject.Utils
 
         public static void TakeScreenshotOfElement(string locator, string filename)
         {
+            //Setting the path for screenshots relative to project directory
+            string startupPath = AppDomain.CurrentDomain.BaseDirectory;
+            string pathToRemove = "bin\\Debug\\net6.0\\";
+            //Replacing the last part of directory so that it points to the screenshots folder
+            startupPath = startupPath.Replace(pathToRemove, "Screenshots\\");
+
+
             IWebElement form = TestBaseSpecflow.driver.FindElement(By.CssSelector(locator));
             ITakesScreenshot formss = form as ITakesScreenshot;
             var screenshotForm = formss.GetScreenshot();
-            screenshotForm.SaveAsFile(@"C:\screenshots\" + filename + ".png", ScreenshotImageFormat.Png);            
+            screenshotForm.SaveAsFile(startupPath + filename + ".png", ScreenshotImageFormat.Png);            
         }
 
 
