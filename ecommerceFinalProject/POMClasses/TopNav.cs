@@ -16,6 +16,28 @@
         public IWebElement Home => _driver.FindElement(By.LinkText("Home"));
         public IWebElement Blog => _driver.FindElement(By.LinkText("Blog"));
 
+        
+
+        public void NavigateToShop()
+        {
+            Shop.Click();
+        }
+
+        public void NavigateToCart()
+        {
+            Cart.Click();
+        }
+
+        public void NavigateToCheckout()
+        {
+            Checkout.Click();
+        }
+
+        public void NavigateToMyAccount()
+        {
+            MyAccount.Click();
+        }
+
 
 
     }

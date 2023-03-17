@@ -40,7 +40,7 @@ namespace ecommerceFinalProject.Utils
             CartPage cartPage = new CartPage(driver);
 
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
-            cartPage.DismissButton.Click();
+            cartPage.DismissNoticeBar();
         }
 
 
@@ -54,10 +54,10 @@ namespace ecommerceFinalProject.Utils
             //Attempt to delete all items from the cart after every test is run
             cartPage.ClearCart();
 
-            topNav.MyAccount.Click();
+            topNav.NavigateToMyAccount();
 
             //Logout done in TearDown as both test cases end by logging out
-            myAccountPage.LogoutTab.Click();
+            myAccountPage.Logout();
             driver.Quit();
         }
 
@@ -72,7 +72,7 @@ namespace ecommerceFinalProject.Utils
             MyAccountPage myAccountPage = new MyAccountPage(driver);
             CartPage cartPage = new CartPage(driver);
 
-            topNav.MyAccount.Click();
+            topNav.NavigateToMyAccount();
 
             login.SetUsername(TestContext.Parameters["username"]);
             login.SetPassword(TestContext.Parameters["password"]);

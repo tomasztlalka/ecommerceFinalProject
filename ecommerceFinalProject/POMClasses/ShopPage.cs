@@ -20,7 +20,7 @@ namespace ecommerceFinalProject.POMClasses
 
         public void AddItemToCart()
         {
-            _topNav.Shop.Click();
+            _topNav.NavigateToShop();
             string Item = TestContext.Parameters["item"];
 
             //TODO: write a "random" item case too
@@ -56,7 +56,7 @@ namespace ecommerceFinalProject.POMClasses
         public void ViewCart()
         {
             WaitForElement(By.LinkText("View cart"), 2, _driver);
-            _topNav.Cart.Click();
+            _topNav.NavigateToCart();
         }
 
 

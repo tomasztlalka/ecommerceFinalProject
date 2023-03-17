@@ -19,6 +19,23 @@
         public IWebElement AccountDetailsTab => _driver.FindElement(By.LinkText("Account details"));
         public IWebElement LogoutTab => _driver.FindElement(By.LinkText("Logout"));
         public IWebElement OrderNumber => _driver.FindElement(By.CssSelector("td[data-title='Order'] > a"));
+
+
+        public void Logout()
+        {
+            LogoutTab.Click();
+        }
+
+        public void ViewOrders()
+        {
+            OrdersTab.Click();
+        }
+
+        public string GetOrderNumberHistory()
+        {
+            return OrderNumber.Text;
+        }
+
     }
 }
 

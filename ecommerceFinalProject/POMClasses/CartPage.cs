@@ -60,7 +60,7 @@
             CartPage cartPage = new CartPage(_driver);
 
 
-            topNav.Cart.Click();
+            topNav.NavigateToCart();
 
             try
             {
@@ -76,8 +76,17 @@
             {
                 //Do nothing - cart is cleared
             }
+        }
+
+        public void DismissNoticeBar()
+        {
+            DismissButton.Click();
+        }
 
 
+        public void ProceedToCheckout()
+        {
+            ProceedToCheckoutButton.Click();
         }
 
 

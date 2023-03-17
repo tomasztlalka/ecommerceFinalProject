@@ -22,7 +22,7 @@ namespace ecommerceFinalProject.StepDefinitions
 
             //Scrolling down to click the 'Proceed to checkout' button
             ScrollToElement(cartPage.SiteFooter);
-            cartPage.ProceedToCheckoutButton.Click();
+            cartPage.ProceedToCheckout();
 
             checkout.FillBillingDetails();
             checkout.SubmitOrder();
@@ -33,7 +33,7 @@ namespace ecommerceFinalProject.StepDefinitions
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
             //Capture the initial order number
-            string orderNumberAtCheckout = "#" + orderReceivedPage.DisplayedOrderNumber.Text;
+            string orderNumberAtCheckout = "#" + orderReceivedPage.GetDisplayedOrderNumber();
 
             //Take a screenshot of the initial order number displayed right after the checkout page
             TakeScreenshotOfElement("div[class='woocommerce-order']", "test2_initialorder");
@@ -41,11 +41,11 @@ namespace ecommerceFinalProject.StepDefinitions
             //Write the initial order number to console
             Console.WriteLine("Your order number is " + orderNumberAtCheckout);
 
-            topNav.MyAccount.Click();
+            topNav.NavigateToMyAccount();
 
             //Navigate to 'Orders' tab on 'My account' page
-            myAccountPage.OrdersTab.Click();
-            string orderNumberFromHistory = myAccountPage.OrderNumber.Text;
+            myAccountPage.ViewOrders();
+            string orderNumberFromHistory = myAccountPage.GetOrderNumberHistory();
 
             //Take a screenshot of the order number present in the 'Orders' tab
             TakeScreenshotOfElement("tbody >tr", "test2_secondorder");
