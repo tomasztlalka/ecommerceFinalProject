@@ -18,11 +18,10 @@ namespace ecommerceFinalProject.POMClasses
 
         //Service Methods
 
-        public void AddItemToCart()
+        public void AddItemToCart(string Item)
         {
             _topNav.NavigateToShop();
-            string Item = TestContext.Parameters["item"];
-
+            
             //TODO: write a "random" item case too
             if (Item == "random" || Item == null)
             {

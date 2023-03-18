@@ -21,7 +21,7 @@ namespace ecommerceFinalProject.StepDefinitions
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
-            shopPage.AddItemToCart();
+            shopPage.AddItemToCart(TestContext.Parameters["item"]);
 
             //ViewCart proceeds to cartPage
             shopPage.ViewCart();
@@ -39,7 +39,7 @@ namespace ecommerceFinalProject.StepDefinitions
             //Write the total to console for debugging purposes
             Console.WriteLine("The expected total is: " + expectedTotal.ToString("N", setPrecision));
                      
-            cartPage.EnterCouponCode();
+            cartPage.EnterCouponCode(TestContext.Parameters["coupon"]);
             
         }
 

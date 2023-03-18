@@ -37,11 +37,11 @@
         
         //Service Methods
 
-        public void EnterCouponCode()
+        public void EnterCouponCode(string couponCode)
         {
             //Wait for the coupon code text box to appear
             WaitForElement(By.Name("coupon_code"), 2, _driver);
-            CouponField.SendKeys(TestContext.Parameters["coupon"]);
+            CouponField.SendKeys(couponCode);
             ApplyButton.Click();
 
             //Wait for the coupon to get applied before proceeding further

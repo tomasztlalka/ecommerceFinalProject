@@ -17,7 +17,7 @@ namespace ecommerceFinalProject.StepDefinitions
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
-            shopPage.AddItemToCart();
+            shopPage.AddItemToCart(TestContext.Parameters["item"]);
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
