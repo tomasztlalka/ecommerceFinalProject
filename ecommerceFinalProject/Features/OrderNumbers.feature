@@ -1,6 +1,6 @@
 ﻿Feature: Order numbers
 
-A short summary of the feature
+As the checkout is completed, an order number is displayed which can then be found in order history. 
 
 Background: 
 	Given I am logged in as a user
