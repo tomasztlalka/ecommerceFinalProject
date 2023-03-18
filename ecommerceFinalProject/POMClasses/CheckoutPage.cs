@@ -21,7 +21,7 @@ namespace ecommerceFinalProject.POMClasses
         public IWebElement PlaceOrderButton => _driver.FindElement(By.CssSelector("#place_order"));
 
         //Service Methods
-        public CheckoutPage FillBillingDetails()
+        public CheckoutPage FillBillingDetails(List<string> billingFields)
         {
             FirstName.Clear();
             LastName.Clear();
@@ -30,12 +30,12 @@ namespace ecommerceFinalProject.POMClasses
             Postcode.Clear();
             Phone.Clear();
 
-            FirstName.SendKeys(TestContext.Parameters["first_name"]);
-            LastName.SendKeys(TestContext.Parameters["last_name"]);
-            BillingAddress.SendKeys(TestContext.Parameters["address_1"]);
-            City.SendKeys(TestContext.Parameters["city"]);
-            Postcode.SendKeys(TestContext.Parameters["postcode"]);
-            Phone.SendKeys(TestContext.Parameters["phone"]);
+            FirstName.SendKeys(billingFields.ElementAt(0));
+            LastName.SendKeys(billingFields.ElementAt(1));
+            BillingAddress.SendKeys(billingFields.ElementAt(2));
+            City.SendKeys(billingFields.ElementAt(3));
+            Postcode.SendKeys(billingFields.ElementAt(4));
+            Phone.SendKeys(billingFields.ElementAt(5));
        
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0.7);
 

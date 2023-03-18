@@ -12,6 +12,9 @@ namespace ecommerceFinalProject.StepDefinitions
         OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         MyAccountPage myAccountPage = new MyAccountPage(driver);
 
+        
+
+
         [When(@"I successfully complete checkout")]
         public void WhenISuccessfullyCompleteCheckout()
         {
@@ -24,7 +27,15 @@ namespace ecommerceFinalProject.StepDefinitions
             ScrollToElement(cartPage.SiteFooter);
             cartPage.ProceedToCheckout();
 
-            checkout.FillBillingDetails();
+            List<string> list = new List<string>();
+            list.Add(TestContext.Parameters["first_name"]);
+            list.Add(TestContext.Parameters["last_name"]);
+            list.Add(TestContext.Parameters["address_1"]);
+            list.Add(TestContext.Parameters["city"]);
+            list.Add(TestContext.Parameters["postcode"]);
+            list.Add(TestContext.Parameters["phone"]);
+
+            checkout.FillBillingDetails(list);
             checkout.SubmitOrder();
         }
 
