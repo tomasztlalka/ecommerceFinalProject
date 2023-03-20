@@ -92,7 +92,8 @@ namespace ecommerceFinalProject.Utils
         {
             TopNav topNav = new TopNav(driver);
             ShopPage shopPage = new ShopPage(driver, topNav);
-            shopPage.AddItemToCart(GetContextParameter("item"));
+            //No need to use the GetContextParameter() method to capture 'item'; AddItemToCart() already handles the null case
+            shopPage.AddItemToCart(TestContext.Parameters["item"]);
         }
 
        
