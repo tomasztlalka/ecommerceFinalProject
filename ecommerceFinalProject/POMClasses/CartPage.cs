@@ -1,4 +1,6 @@
-﻿namespace ecommerceFinalProject.POMClasses
+﻿using OpenQA.Selenium.Support.UI;
+
+namespace ecommerceFinalProject.POMClasses
 {
     internal class CartPage
     {
@@ -10,7 +12,6 @@
         decimal expectedTotal;
         decimal actualTotal;
 
-
         public CartPage(IWebDriver driver) //Get the webdriver instance from the calling test
         {
             this._driver = driver;
@@ -18,7 +19,6 @@
         }
 
         //Locators
-
         public IWebElement CouponField => _driver.FindElement(By.Name("coupon_code"));
 
         public IWebElement ApplyButton => _driver.FindElement(By.Name("apply_coupon"));
@@ -35,7 +35,7 @@
 
         //public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
 
-        //public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
+        public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
         public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
 
@@ -67,13 +67,13 @@
                 while (true)
                 {
                     cartPage.DeleteItem();
-                    //WaitForElement(By.CssSelector(cartPage.DeleteButtonPath), 3, driver);
+                    //WaitForElement(By.CssSelector("a[class='remove']"), 3, _driver);
                     Thread.Sleep(1000);
                 }
             }
             catch
             {
-                //Do nothing - cart is cleared
+                ReturnToShopButton.Click();
             }
         }
       

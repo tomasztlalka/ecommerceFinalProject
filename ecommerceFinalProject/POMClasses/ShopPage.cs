@@ -19,7 +19,7 @@ namespace ecommerceFinalProject.POMClasses
 
         public void AddItemToCart(string Item)
         {
-            _topNav.NavigateToShop();
+           _topNav.NavigateToShop();
             
             //If the 'Item' parameter is null or set to 'random', the item will be selected randomly
             if (Item.ToLower() == "random" || Item == null)

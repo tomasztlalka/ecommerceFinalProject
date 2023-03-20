@@ -26,15 +26,15 @@ namespace ecommerceFinalProject.StepDefinitions
             ScrollToElement(cartPage.SiteFooter);
             cartPage.ProceedToCheckout();
 
-            List<string> list = new List<string>();
-            list.Add(GetContextParameter("first_name"));
-            list.Add(GetContextParameter("last_name"));
-            list.Add(GetContextParameter("address_1"));
-            list.Add(GetContextParameter("city"));
-            list.Add(GetContextParameter("postcode"));
-            list.Add(GetContextParameter("phone"));
+            List<string> billingDetails = new List<string>();
+            billingDetails.Add(GetContextParameter("first_name"));
+            billingDetails.Add(GetContextParameter("last_name"));
+            billingDetails.Add(GetContextParameter("address_1"));
+            billingDetails.Add(GetContextParameter("city"));
+            billingDetails.Add(GetContextParameter("postcode"));
+            billingDetails.Add(GetContextParameter("phone"));
 
-            checkout.FillBillingDetails(list);
+            checkout.FillBillingDetails(billingDetails);
             checkout.SubmitOrder();
         }
 

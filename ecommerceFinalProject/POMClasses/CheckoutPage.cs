@@ -48,7 +48,6 @@ namespace ecommerceFinalProject.POMClasses
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[class='blockUI blockOverlay']")));
 
-            //wait.Until(drv => !drv.FindElement(By.CssSelector("div[class='blockUI blockOverlay']")).Displayed);
 
             PlaceOrderButton.Click();
             //Wait for order number to appear on page

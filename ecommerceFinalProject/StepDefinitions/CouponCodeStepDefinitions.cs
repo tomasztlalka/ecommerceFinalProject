@@ -18,39 +18,29 @@ namespace ecommerceFinalProject.StepDefinitions
             ShopPage shopPage = new ShopPage(driver, topNav);
             shopPage.ViewCart();                     
             cartPage.EnterCouponCode(couponCode);
-            
         }
 
 
         [Then(@"the total amount is reduced by '([^']*)' percent")]
         public void ThenTheTotalAmountIsCorrectlyReduced(decimal discountPercentage)
         {
-            //Thread.Sleep(3000);
-            //Scrolling down to 'prepare' for a screenshot
-            ScrollToElement(cartPage.SiteFooter);
-            Thread.Sleep(1000);
-
-
             //Work out the expected total
             decimal expectedTotal = cartPage.CalculateExpectedTotal(discountPercentage);
             //Write the total to console for debugging purposes
             Console.WriteLine("Expected total is : " + expectedTotal);
-
-            //Take a screenshot of the 'cart_totals' element and save it
-            TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
 
             //Capture the actual total from page
             decimal actualTotal = cartPage.GetActualTotal();
             //Write the total to console for debugging purposes
             Console.WriteLine("The actual total is: " + actualTotal);
 
+            //Need to wait for element to be in sight
+            Thread.Sleep(1000);
+            //Take a screenshot of the 'cart_totals' element and save it
+            TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
+
             //Assert that the two totals are the same
-            Assert.That(actualTotal, Is.EqualTo(expectedTotal), "Actual total different than expected");
-
-            
+            Assert.That(actualTotal, Is.EqualTo(expectedTotal), "Actual total not equal to expected");
         }
-
-
-        
     }
 }
