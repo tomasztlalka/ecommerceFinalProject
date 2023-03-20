@@ -87,7 +87,15 @@ namespace ecommerceFinalProject.Utils
 
 
 
+        [Given(@"I have added an '([^']*)' to cart")]
+        public void GivenIHaveAddedAnItemToCart(string item)
+        {
+            TopNav topNav = new TopNav(driver);
+            ShopPage shopPage = new ShopPage(driver, topNav);
+            shopPage.AddItemToCart(TestContext.Parameters["item"]);
+        }
 
+       
     }
 
 
