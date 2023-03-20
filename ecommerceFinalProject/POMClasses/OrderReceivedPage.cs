@@ -15,7 +15,7 @@
         public IWebElement DisplayedOrderNumber => _driver.FindElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"));
     
 
-        public string GetDisplayedOrderNumber()
+        public string GetOrderNumberAtCheckout()
         {
             return DisplayedOrderNumber.Text;
         }

@@ -18,7 +18,7 @@ namespace ecommerceFinalProject.Utils
         public void SetUp()
         {
             //Instantiate driver based on string value in runsettings
-            string driverTest = CheckNull(TestContext.Parameters["browser"]).ToLower();
+            string driverTest = GetContextParameter("browser").ToLower();
             switch (driverTest)
             {
                 case "chrome":
@@ -36,7 +36,7 @@ namespace ecommerceFinalProject.Utils
             }
 
             driver.Manage().Window.Maximize();
-            driver.Url = TestContext.Parameters["baseURL"];
+            driver.Url = GetContextParameter("baseURL");
             CartPage cartPage = new CartPage(driver);
 
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
@@ -74,8 +74,8 @@ namespace ecommerceFinalProject.Utils
 
             topNav.NavigateToMyAccount();
 
-            login.SetUsername(TestContext.Parameters["username"]);
-            login.SetPassword(TestContext.Parameters["password"]);
+            login.SetUsername(GetContextParameter("username"));
+            login.SetPassword(GetContextParameter("password"));
             login.SubmitForm();
 
             //Assert that the login was successful
@@ -87,12 +87,12 @@ namespace ecommerceFinalProject.Utils
 
 
 
-        [Given(@"I have added an '([^']*)' to cart")]
-        public void GivenIHaveAddedAnItemToCart(string item)
+        [Given(@"I have added an item to cart")]
+        public void GivenIHaveAddedAnItemToCart()
         {
             TopNav topNav = new TopNav(driver);
             ShopPage shopPage = new ShopPage(driver, topNav);
-            shopPage.AddItemToCart(TestContext.Parameters["item"]);
+            shopPage.AddItemToCart(GetContextParameter("item"));
         }
 
        

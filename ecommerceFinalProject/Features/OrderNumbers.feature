@@ -4,7 +4,7 @@ As the checkout is completed, an order number is displayed which can then be fou
 
 Background: 
 	Given I am logged in as a user
-	And I have added an 'item' to cart
+	And I have added an item to cart
 
 @PurchasingItems
 Scenario: Verify order number

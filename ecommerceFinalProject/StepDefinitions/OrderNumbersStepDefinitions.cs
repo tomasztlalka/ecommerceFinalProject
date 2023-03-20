@@ -20,7 +20,7 @@ namespace ecommerceFinalProject.StepDefinitions
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
-            shopPage.AddItemToCart(TestContext.Parameters["item"]);
+            shopPage.AddItemToCart(GetContextParameter("item"));
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
@@ -28,16 +28,12 @@ namespace ecommerceFinalProject.StepDefinitions
             cartPage.ProceedToCheckout();
 
             List<string> list = new List<string>();
-            foreach (string item in list)
-            {
-                CheckNull(item);
-            }
-            list.Add(TestContext.Parameters["first_name"]);
-            list.Add(TestContext.Parameters["last_name"]);
-            list.Add(TestContext.Parameters["address_1"]);
-            list.Add(TestContext.Parameters["city"]);
-            list.Add(TestContext.Parameters["postcode"]);
-            list.Add(TestContext.Parameters["phone"]);
+            list.Add(GetContextParameter("first_name"));
+            list.Add(GetContextParameter("last_name"));
+            list.Add(GetContextParameter("address_1"));
+            list.Add(GetContextParameter("city"));
+            list.Add(GetContextParameter("postcode"));
+            list.Add(GetContextParameter("phone"));
 
             checkout.FillBillingDetails(list);
             checkout.SubmitOrder();
@@ -48,25 +44,23 @@ namespace ecommerceFinalProject.StepDefinitions
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
             //Capture the initial order number
-            string orderNumberAtCheckout = "#" + orderReceivedPage.GetDisplayedOrderNumber();
-
+            string orderNumberAtCheckout = "#" + orderReceivedPage.GetOrderNumberAtCheckout();
             //Take a screenshot of the initial order number displayed right after the checkout page
             TakeScreenshotOfElement("div[class='woocommerce-order']", "test2_initialorder");
-
             //Write the initial order number to console
             Console.WriteLine("Your order number is " + orderNumberAtCheckout);
 
             topNav.NavigateToMyAccount();
-
             //Navigate to 'Orders' tab on 'My account' page
             myAccountPage.ViewOrders();
-            string orderNumberFromHistory = myAccountPage.GetOrderNumberHistory();
 
+            //Capture the order number present in order history
+            string orderNumberFromHistory = myAccountPage.GetOrderNumberInHistory();
             //Take a screenshot of the order number present in the 'Orders' tab
             TakeScreenshotOfElement("tbody >tr", "test2_secondorder");
-
             //Write the order number from 'Orders' tab to console
             Console.WriteLine("Your order number from 'Orders' is " + orderNumberFromHistory);
+
             Assert.That(orderNumberAtCheckout, Is.EqualTo(orderNumberFromHistory), "Order number does not match");
         }
     }

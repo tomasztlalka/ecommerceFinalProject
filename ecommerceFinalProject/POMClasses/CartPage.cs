@@ -5,6 +5,11 @@
 
         private IWebDriver _driver; //Field to hold a webdriver instance
 
+        //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
+        char[] charsToTrim = { '£' };
+        decimal expectedTotal;
+        decimal actualTotal;
+
 
         public CartPage(IWebDriver driver) //Get the webdriver instance from the calling test
         {
@@ -30,7 +35,7 @@
 
         //public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
 
-        public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
+        //public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
         public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
 
@@ -49,23 +54,16 @@
             WaitForElement(By.CssSelector("tr[class='cart-discount coupon-edgewords']"), 2, _driver);
         }
 
-        public void DeleteItem()
-        {
-            DeleteButton.Click();
-        }
 
         //Method for navigating to the Cart and removing any item that is in it
         public void ClearCart()
         {
             TopNav topNav = new TopNav(_driver);
             CartPage cartPage = new CartPage(_driver);
-
-
             topNav.NavigateToCart();
 
             try
             {
-                //while (cartPage.CartEmptyMessage.Displayed)
                 while (true)
                 {
                     cartPage.DeleteItem();
@@ -78,6 +76,21 @@
                 //Do nothing - cart is cleared
             }
         }
+      
+        public decimal CalculateExpectedTotal(decimal discPercentage)
+        {
+            decimal subTotal = decimal.Parse((SubTotal.Text).Trim(charsToTrim));
+            decimal shippingFee = decimal.Parse(GetContextParameter("shipping_fee"));
+            expectedTotal = (subTotal * (1 - discPercentage / 100)) + shippingFee;
+            return expectedTotal;
+        }
+
+        public decimal GetActualTotal()
+        {
+            actualTotal = decimal.Parse((CartTotal.Text).Trim(charsToTrim));
+            return actualTotal;
+        }
+
 
         public void DismissNoticeBar()
         {
@@ -89,6 +102,12 @@
         {
             ProceedToCheckoutButton.Click();
         }
+
+        public void DeleteItem()
+        {
+            DeleteButton.Click();
+        }
+
 
 
     }

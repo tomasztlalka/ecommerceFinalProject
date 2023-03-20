@@ -31,7 +31,7 @@
             OrdersTab.Click();
         }
 
-        public string GetOrderNumberHistory()
+        public string GetOrderNumberInHistory()
         {
             return OrderNumber.Text;
         }

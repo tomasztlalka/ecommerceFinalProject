@@ -44,23 +44,30 @@ namespace ecommerceFinalProject.Utils
         }
 
         
-        // Scrolls to the page's bottom using javascript
-        public static void ScrollToBottom()
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)TestBaseSpecflow.driver;
-            string title = (string)js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+        //// Scrolls to the page's bottom using javascript
+        //public static void ScrollToBottom()
+        //{
+        //    IJavaScriptExecutor js = (IJavaScriptExecutor)TestBaseSpecflow.driver;
+        //    string title = (string)js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
             
-        }
+        //}
 
 
-        public static string CheckNull(string example)
+        public static string CheckNull(string dataValue)
         {
-            if (example == null)
+            if (dataValue == null)
             {
-                throw new ArgumentNullException(nameof(example));
+                throw new ArgumentNullException(nameof(dataValue));
             }
-            return example;
+            return dataValue;
         }
+
+        public static string GetContextParameter(string parameter)
+        {
+            CheckNull(parameter);
+            return TestContext.Parameters[parameter];
+        }
+
 
     }
 }
