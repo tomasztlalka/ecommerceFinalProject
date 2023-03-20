@@ -18,7 +18,7 @@ namespace ecommerceFinalProject.Utils
         public void SetUp()
         {
             //Instantiate driver based on string value in runsettings
-            string driverTest = TestContext.Parameters["browser"].ToLower();
+            string driverTest = CheckNull(TestContext.Parameters["browser"]).ToLower();
             switch (driverTest)
             {
                 case "chrome":

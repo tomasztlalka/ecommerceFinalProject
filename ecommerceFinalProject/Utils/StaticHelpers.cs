@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Edge;
+﻿using NUnit.Framework.Internal.Execution;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
 
@@ -51,6 +52,15 @@ namespace ecommerceFinalProject.Utils
             
         }
 
+
+        public static string CheckNull(string example)
+        {
+            if (example == null)
+            {
+                throw new ArgumentNullException(nameof(example));
+            }
+            return example;
+        }
 
     }
 }

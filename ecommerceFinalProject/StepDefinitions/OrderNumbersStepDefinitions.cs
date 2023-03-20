@@ -28,6 +28,10 @@ namespace ecommerceFinalProject.StepDefinitions
             cartPage.ProceedToCheckout();
 
             List<string> list = new List<string>();
+            foreach (string item in list)
+            {
+                CheckNull(item);
+            }
             list.Add(TestContext.Parameters["first_name"]);
             list.Add(TestContext.Parameters["last_name"]);
             list.Add(TestContext.Parameters["address_1"]);

@@ -18,12 +18,14 @@
         //Service Methods
         public void SetUsername(string username)
         {
+            CheckNull(username);
             UsernameField.Clear();
             UsernameField.SendKeys(username);
         }
 
         public void SetPassword(string password)
         {
+            CheckNull(password);
             PasswordField.Clear();
             PasswordField.SendKeys(password);
         }

@@ -26,13 +26,14 @@ namespace ecommerceFinalProject.StepDefinitions
             //ViewCart proceeds to cartPage
             shopPage.ViewCart();
 
+            //TODO: MOVE THIS INTO A SEPARATE METHOD IN CARTPAGE POM - CalculateExpectedTotal()
             //Capture subtotal value from page and get values of parameters from the runsettings file
             decimal subTotal = decimal.Parse((cartPage.SubTotal.Text).Trim(charsToTrim));
-            decimal discountAsFloat = (decimal.Parse(TestContext.Parameters["discount_percentage"])) / 100;
-            decimal shippingFee = decimal.Parse(TestContext.Parameters["shipping_fee"]);
-
+            decimal discountAsFloat = (decimal.Parse(CheckNull(TestContext.Parameters["discount_percentage"]))) / 100;
+            decimal shippingFee = decimal.Parse(CheckNull(TestContext.Parameters["shipping_fee"]));
             //Work out the expected total
             expectedTotal = (subTotal * (1 - discountAsFloat)) + shippingFee;
+
 
             //Defining decimal point precision to format output in the console
             setPrecision.NumberDecimalDigits = 2;
