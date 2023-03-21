@@ -1,3 +1,4 @@
+using Gherkin.Ast;
 using static ecommerceFinalProject.Utils.TestBaseSpecflow;
 
 namespace ecommerceFinalProject.StepDefinitions
@@ -22,10 +23,8 @@ namespace ecommerceFinalProject.StepDefinitions
             shopPage.AddItemToCart(item);
         }
 
-
-
-        [When(@"I successfully complete checkout")]
-        public void WhenISuccessfullyCompleteCheckout()
+        [When(@"I successfully complete checkout using these details")]
+        public void WhenISuccessfullyCompleteCheckoutUsingTheseDetails(Table table)
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
@@ -33,13 +32,15 @@ namespace ecommerceFinalProject.StepDefinitions
             cartPage.ProceedToCheckout();
 
             List<string> billingDetails = new List<string>();
-            billingDetails.Add(GetContextParameter("first_name"));
-            billingDetails.Add(GetContextParameter("last_name"));
-            billingDetails.Add(GetContextParameter("address_1"));
-            billingDetails.Add(GetContextParameter("city"));
-            billingDetails.Add(GetContextParameter("postcode"));
-            billingDetails.Add(GetContextParameter("phone"));
-
+            foreach (TechTalk.SpecFlow.TableRow row in table.Rows)
+            {
+                billingDetails.Add(row["first_name"]);
+                billingDetails.Add(row["last_name"]);
+                billingDetails.Add(row["address_line1"]);
+                billingDetails.Add(row["city"]);
+                billingDetails.Add(row["postcode"]);
+                billingDetails.Add(row["phone"]);
+            }
             checkout.FillBillingDetails(billingDetails);
             checkout.SubmitOrder();
         }

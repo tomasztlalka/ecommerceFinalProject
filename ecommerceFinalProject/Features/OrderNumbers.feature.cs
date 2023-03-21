@@ -116,10 +116,24 @@ this.FeatureBackground();
 #line 10
  testRunner.Given(string.Format("I have added an \'{0}\' to cart", item), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "first_name",
+                            "last_name",
+                            "address_line1",
+                            "city",
+                            "postcode",
+                            "phone"});
+                table1.AddRow(new string[] {
+                            "John",
+                            "Smith",
+                            "63 London Road",
+                            "London",
+                            "LD164GB",
+                            "07134490550"});
 #line 11
- testRunner.When("I successfully complete checkout", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I successfully complete checkout using these details", ((string)(null)), table1, "When ");
 #line hidden
-#line 12
+#line 14
  testRunner.Then("order number shown after checkout matches the one in Orders page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
