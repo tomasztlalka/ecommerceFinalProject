@@ -12,20 +12,12 @@ namespace ecommerceFinalProject.StepDefinitions
         OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         MyAccountPage myAccountPage = new MyAccountPage(driver);
 
-        
-
-
         [When(@"I successfully complete checkout")]
         public void WhenISuccessfullyCompleteCheckout()
         {
             ShopPage shopPage = new ShopPage(driver, topNav);
 
             shopPage.ViewCart();
-
-            //Scrolling down to click the 'Proceed to checkout' button
-            //ScrollToElement(cartPage.SiteFooter);
-            
-
             cartPage.ProceedToCheckout();
 
             List<string> billingDetails = new List<string>();

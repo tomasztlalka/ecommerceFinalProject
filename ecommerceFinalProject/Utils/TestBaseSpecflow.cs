@@ -1,11 +1,4 @@
-﻿using ecommerceFinalProject.POMClasses;
-using OpenQA.Selenium.Chromium;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using System.Configuration;
-
-
-namespace ecommerceFinalProject.Utils
+﻿namespace ecommerceFinalProject.Utils
 {
 
     [Binding]

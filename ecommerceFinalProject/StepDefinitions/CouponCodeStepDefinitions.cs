@@ -1,4 +1,3 @@
-using OpenQA.Selenium;
 using static ecommerceFinalProject.Utils.TestBaseSpecflow;
 
 namespace ecommerceFinalProject.StepDefinitions
@@ -10,8 +9,6 @@ namespace ecommerceFinalProject.StepDefinitions
         TopNav topNav = new TopNav(driver);
         CartPage cartPage = new CartPage(driver);
 
-        //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
-        
         [When(@"I apply the '([^']*)' coupon code during checkout")]
         public void WhenIApplyADiscountCodeDuringCheckout(string couponCode)
         {
@@ -41,6 +38,7 @@ namespace ecommerceFinalProject.StepDefinitions
             //Take a screenshot of the 'cart_totals' element and save it
             TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
 
+            
             //Assert that the two totals are the same
             Assert.That(actualTotal, Is.EqualTo(expectedTotal), "Actual total not equal to expected");
         }

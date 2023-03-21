@@ -31,8 +31,6 @@ namespace ecommerceFinalProject.POMClasses
 
         public IWebElement CartTotal => _driver.FindElement(By.CssSelector("td[data-title='Total']"));
 
-        //public IWebElement CartEmptyMessage => _driver.FindElement(By.XPath("//*[@id=\"post-5\"]/div/div/p[1]/text()"));
-
         public IWebElement ReturnToShopButton => _driver.FindElement(By.CssSelector("a[class='button wc-backward']"));
 
         public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
