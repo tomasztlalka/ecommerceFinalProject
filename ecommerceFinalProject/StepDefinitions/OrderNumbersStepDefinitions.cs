@@ -12,6 +12,18 @@ namespace ecommerceFinalProject.StepDefinitions
         OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
         MyAccountPage myAccountPage = new MyAccountPage(driver);
 
+
+        [Given(@"I have added an '(.*)' to cart")]
+        public void GivenIHaveAddedAnItemToCart(string item)
+        {
+            TopNav topNav = new TopNav(driver);
+            ShopPage shopPage = new ShopPage(driver, topNav);
+            //No need to check for null; AddItemToCart() already handles the null case
+            shopPage.AddItemToCart(item);
+        }
+
+
+
         [When(@"I successfully complete checkout")]
         public void WhenISuccessfullyCompleteCheckout()
         {

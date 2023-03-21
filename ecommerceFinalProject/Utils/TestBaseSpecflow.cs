@@ -11,7 +11,7 @@
         public void SetUp()
         {
             //Instantiate driver based on string value in runsettings
-            string driverTest = GetContextParameter("browser").ToLower();
+            string driverTest = Environment.GetEnvironmentVariable("BROWSER").ToLower();
             switch (driverTest)
             {
                 case "chrome":
@@ -34,7 +34,7 @@
             }
 
             driver.Manage().Window.Maximize();
-            driver.Url = GetContextParameter("baseURL");
+            driver.Url = Environment.GetEnvironmentVariable("BASEURL");
             CartPage cartPage = new CartPage(driver);
 
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
@@ -85,14 +85,7 @@
 
 
 
-        [Given(@"I have added an item to cart")]
-        public void GivenIHaveAddedAnItemToCart()
-        {
-            TopNav topNav = new TopNav(driver);
-            ShopPage shopPage = new ShopPage(driver, topNav);
-            //No need to use the GetContextParameter() method to capture 'item'; AddItemToCart() already handles the null case
-            shopPage.AddItemToCart(TestContext.Parameters["item"]);
-        }
+        
 
        
     }
