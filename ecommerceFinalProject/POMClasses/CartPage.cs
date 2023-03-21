@@ -7,8 +7,6 @@ namespace ecommerceFinalProject.POMClasses
 
         private IWebDriver _driver; //Field to hold a webdriver instance
 
-        //Defining an array of characters that need to be ignored when attempting to capture subtotal and total
-        char[] charsToTrim = { '£' };
         decimal expectedTotal;
         decimal actualTotal;
 
@@ -79,7 +77,7 @@ namespace ecommerceFinalProject.POMClasses
       
         public decimal CalculateExpectedTotal(decimal discPercentage)
         {
-            decimal subTotal = decimal.Parse((SubTotal.Text).Trim(charsToTrim));
+            decimal subTotal = decimal.Parse(SubTotal.Text[1..]);
             decimal shippingFee = decimal.Parse(GetContextParameter("shipping_fee"));
             expectedTotal = (subTotal * (1 - discPercentage / 100)) + shippingFee;
             return expectedTotal;
@@ -87,7 +85,7 @@ namespace ecommerceFinalProject.POMClasses
 
         public decimal GetActualTotal()
         {
-            actualTotal = decimal.Parse((CartTotal.Text).Trim(charsToTrim));
+            actualTotal = decimal.Parse(CartTotal.Text[1..]);
             return actualTotal;
         }
 

@@ -27,7 +27,9 @@ namespace ecommerceFinalProject.StepDefinitions
             //Work out the expected total
             decimal expectedTotal = cartPage.CalculateExpectedTotal(discountPercentage);
             //Write the total to console for debugging purposes
-            Console.WriteLine("Expected total is : " + expectedTotal);
+            Console.Write("Expected total is: ");
+            //Specifying string format
+            Console.WriteLine("{0:00.00}", expectedTotal);
 
             //Capture the actual total from page
             decimal actualTotal = cartPage.GetActualTotal();

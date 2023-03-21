@@ -33,7 +33,7 @@
 
         public string GetOrderNumberInHistory()
         {
-            return OrderNumber.Text;
+            return OrderNumber.Text[1..];
         }
 
     }

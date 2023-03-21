@@ -23,7 +23,9 @@ namespace ecommerceFinalProject.StepDefinitions
             shopPage.ViewCart();
 
             //Scrolling down to click the 'Proceed to checkout' button
-            ScrollToElement(cartPage.SiteFooter);
+            //ScrollToElement(cartPage.SiteFooter);
+            
+
             cartPage.ProceedToCheckout();
 
             List<string> billingDetails = new List<string>();
@@ -43,11 +45,11 @@ namespace ecommerceFinalProject.StepDefinitions
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
             //Capture the initial order number
-            string orderNumberAtCheckout = "#" + orderReceivedPage.GetOrderNumberAtCheckout();
+            string orderNumberAtCheckout = orderReceivedPage.GetOrderNumberAtCheckout();
             //Take a screenshot of the initial order number displayed right after the checkout page
             TakeScreenshotOfElement("div[class='woocommerce-order']", "test2_initialorder");
             //Write the initial order number to console
-            Console.WriteLine("Your order number is " + orderNumberAtCheckout);
+            Console.WriteLine("Order number at checkout is " + orderNumberAtCheckout);
 
             topNav.NavigateToMyAccount();
             //Navigate to 'Orders' tab on 'My account' page
@@ -58,7 +60,7 @@ namespace ecommerceFinalProject.StepDefinitions
             //Take a screenshot of the order number present in the 'Orders' tab
             TakeScreenshotOfElement("tbody >tr", "test2_secondorder");
             //Write the order number from 'Orders' tab to console
-            Console.WriteLine("Your order number from 'Orders' is " + orderNumberFromHistory);
+            Console.WriteLine("Order number from 'Orders' is " + orderNumberFromHistory);
 
             Assert.That(orderNumberAtCheckout, Is.EqualTo(orderNumberFromHistory), "Order number does not match");
         }
