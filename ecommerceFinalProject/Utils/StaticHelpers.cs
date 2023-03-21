@@ -32,7 +32,10 @@ namespace ecommerceFinalProject.Utils
             IWebElement form = TestBaseSpecflow.driver.FindElement(By.CssSelector(locator));
             ITakesScreenshot formss = form as ITakesScreenshot;
             var screenshotForm = formss.GetScreenshot();
-            screenshotForm.SaveAsFile(startupPath + filename + ".png", ScreenshotImageFormat.Png);            
+            screenshotForm.SaveAsFile(startupPath + filename + ".png", ScreenshotImageFormat.Png);
+
+            //Adding file to results
+            TestContext.AddTestAttachment(startupPath + filename + ".png", filename);
         }
 
 
