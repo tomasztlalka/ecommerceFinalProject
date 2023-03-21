@@ -46,9 +46,23 @@ namespace ecommerceFinalProject.POMClasses
         {
             //Workaround the blockUI blockOverlay displayed in Firefox
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[class='blockUI blockOverlay']")));
+            wait.Until(drv => 
+            {
+                try
+                {
+                    PlaceOrderButton.Click();
+                    return true;
+                }
+                catch (ElementClickInterceptedException ex)
+                {
+                    return false;
+                }
+                catch(StaleElementReferenceException ex)
+                {
+                    return false;
+                }
+            });
 
-            PlaceOrderButton.Click();
             //Wait for order number to appear on page
             WaitForElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"), 3, _driver);
 

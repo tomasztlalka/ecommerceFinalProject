@@ -14,10 +14,14 @@ namespace ecommerceFinalProject.Utils
             wait2.Until(drv => drv.FindElement(locator).Displayed);
         }
 
-        
-
-        public static void TakeScreenshotOfElement(string locator, string filename)
+        public static void TakeScreenshotOfElement(string locator, string filename, bool wait=false)
         {
+            if (wait)
+            {
+                //Need to wait for element to be in sight
+                Thread.Sleep(1000);
+            }
+
             //Setting the path for screenshots relative to project directory
             string startupPath = AppDomain.CurrentDomain.BaseDirectory;
             string pathToRemove = "bin\\Debug\\net6.0\\";
@@ -54,7 +58,5 @@ namespace ecommerceFinalProject.Utils
             
             return CheckNull(TestContext.Parameters[parameter]);
         }
-
-
     }
 }

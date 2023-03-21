@@ -33,12 +33,9 @@ namespace ecommerceFinalProject.StepDefinitions
             //Write the total to console for debugging purposes
             Console.WriteLine("The actual total is: " + actualTotal);
 
-            //Need to wait for element to be in sight
-            Thread.Sleep(1000);
             //Take a screenshot of the 'cart_totals' element and save it
-            TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals");
+            TakeScreenshotOfElement("div[class='cart_totals']", "test1_carttotals", true);
 
-            
             //Assert that the two totals are the same
             Assert.That(actualTotal, Is.EqualTo(expectedTotal), "Actual total not equal to expected");
         }

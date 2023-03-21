@@ -23,6 +23,11 @@
                 case "edge":
                     driver = new EdgeDriver();
                     break;
+                case "headlesschrome":
+                    ChromeOptions options = new ChromeOptions();
+                    options.AddArguments("--headless=new");
+                    driver = new ChromeDriver(options);
+                    break;
                 default:
                     driver = new ChromeDriver();
                     break;

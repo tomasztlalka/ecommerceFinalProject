@@ -35,6 +35,7 @@ namespace ecommerceFinalProject.POMClasses
 
         public IWebElement DismissButton => _driver.FindElement(By.CssSelector("a[class='woocommerce-store-notice__dismiss-link']"));
 
+        //public IWebElement CouponConfirmation => _driver.FindElement(By.CssSelector("tr[class='cart-discount coupon-edgewords']"));
         
         //Service Methods
 
