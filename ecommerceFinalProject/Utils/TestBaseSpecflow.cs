@@ -6,7 +6,13 @@
     {
         public static IWebDriver driver;
 
-        
+
+        private readonly ScenarioContext _scenarioContext;
+        public TestBaseSpecflow(ScenarioContext scenarioContext)
+        {
+            _scenarioContext= scenarioContext;
+        }
+
         [BeforeScenario]
         public void SetUp()
         {
@@ -33,10 +39,28 @@
                     break;
             }
 
+            CartPage cartPage = new CartPage(driver);
+            TopNav topNav = new TopNav(driver);
+            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            LoginPage loginPage = new LoginPage(driver);
+            OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
+            CheckoutPage checkoutPage = new CheckoutPage(driver);
+            ShopPage shopPage = new ShopPage(driver);
+
+            _scenarioContext["cartPage"] = cartPage;
+            _scenarioContext["topNav"] = topNav;
+            _scenarioContext["myAccountPage"] = myAccountPage;
+            _scenarioContext["loginPage"] = loginPage;
+            _scenarioContext["orderReceivedPage"] = orderReceivedPage;
+            _scenarioContext["checkoutPage"] = checkoutPage;
+            _scenarioContext["shopPage"] = shopPage;
+
+
+
+
             driver.Manage().Window.Maximize();
             driver.Url = Environment.GetEnvironmentVariable("BASEURL");
-            CartPage cartPage = new CartPage(driver);
-
+           
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
             cartPage.DismissNoticeBar();
         }
@@ -45,9 +69,9 @@
         [AfterScenario]
         public void TearDown()
         {
-            TopNav topNav = new TopNav(driver);
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
-            CartPage cartPage = new CartPage(driver);
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
+            TopNav topNav = (TopNav)_scenarioContext["topNav"];
+            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
 
             //Attempt to delete all items from the cart after every test is run
             cartPage.ClearCart();
@@ -65,16 +89,17 @@
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
         {
-            TopNav topNav = new TopNav(driver);
-            LoginPage login = new LoginPage(driver);
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
-            CartPage cartPage = new CartPage(driver);
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
+            TopNav topNav = (TopNav)_scenarioContext["topNav"];
+            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
+            LoginPage loginPage = (LoginPage)_scenarioContext["loginPage"];
+          
 
             topNav.NavigateToMyAccount();
 
-            login.SetUsername(GetContextParameter("username"));
-            login.SetPassword(GetContextParameter("password"));
-            login.SubmitForm();
+            loginPage.SetUsername(GetContextParameter("username"));
+            loginPage.SetPassword(GetContextParameter("password"));
+            loginPage.SubmitForm();
 
             //Assert that the login was successful
             Assert.That(myAccountPage.LogoutTab.Displayed, "Can't find the logout button - not logged in");

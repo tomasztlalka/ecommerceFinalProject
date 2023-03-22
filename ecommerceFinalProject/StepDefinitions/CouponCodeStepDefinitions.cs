@@ -6,13 +6,18 @@ namespace ecommerceFinalProject.StepDefinitions
     [Binding]
     public class CouponCodeStepDefinitions
     {
-        TopNav topNav = new TopNav(driver);
-        CartPage cartPage = new CartPage(driver);
+        private readonly ScenarioContext _scenarioContext;
+        public CouponCodeStepDefinitions(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [When(@"I apply the '([^']*)' coupon code during checkout")]
         public void WhenIApplyADiscountCodeDuringCheckout(string couponCode)
         {
-            ShopPage shopPage = new ShopPage(driver, topNav);
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
+            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
+
             shopPage.ViewCart();                     
             cartPage.EnterCouponCode(couponCode);
         }
@@ -21,6 +26,9 @@ namespace ecommerceFinalProject.StepDefinitions
         [Then(@"the total amount is reduced by '([^']*)' percent")]
         public void ThenTheTotalAmountIsCorrectlyReduced(decimal discountPercentage)
         {
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
+
+
             //Work out the expected total
             decimal expectedTotal = cartPage.CalculateExpectedTotal(discountPercentage);
             //Write the total to console for debugging purposes

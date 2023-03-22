@@ -1,25 +1,21 @@
-﻿using OpenQA.Selenium.DevTools.V108.Page;
-
-namespace ecommerceFinalProject.POMClasses
+﻿namespace ecommerceFinalProject.POMClasses
 {
 
     internal class ShopPage
     {
 
         private IWebDriver _driver; //Field to hold a webdriver instance
-        private TopNav _topNav;
 
-        public ShopPage(IWebDriver driver, TopNav topNav) //Get the webdriver instance from the calling test
+        public ShopPage(IWebDriver driver) //Get the webdriver instance from the calling test
         {
             this._driver = driver;
-            this._topNav = topNav;
         }
 
         //Service Methods
-
         public void AddItemToCart(string Item)
         {
-            _topNav.NavigateToShop();
+            TopNav topNav = new TopNav(_driver);
+            topNav.NavigateToShop();
             
             //If the 'Item' parameter is null or set to 'random', the item will be selected randomly
             if (Item.ToLower() == "random" || Item == null)
@@ -46,8 +42,9 @@ namespace ecommerceFinalProject.POMClasses
 
         public void ViewCart()
         {
+            TopNav topNav = new TopNav(_driver);
             WaitForElement(By.LinkText("View cart"), 2, _driver);
-            _topNav.NavigateToCart();
+            topNav.NavigateToCart();
         }
 
 

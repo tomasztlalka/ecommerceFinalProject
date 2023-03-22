@@ -6,27 +6,30 @@ namespace ecommerceFinalProject.StepDefinitions
     [Binding]
     public class OrderNumbersStepDefinitions
     {
-        //Initialise instances of POM classes
-        TopNav topNav = new TopNav(driver);
-        CheckoutPage checkout = new CheckoutPage(driver);
-        CartPage cartPage = new CartPage(driver);
-        OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
-        MyAccountPage myAccountPage = new MyAccountPage(driver);
+        private readonly ScenarioContext _scenarioContext;
+        public OrderNumbersStepDefinitions(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
 
+        }
 
         [Given(@"I have added an '(.*)' to cart")]
         public void GivenIHaveAddedAnItemToCart(string item)
         {
-            TopNav topNav = new TopNav(driver);
-            ShopPage shopPage = new ShopPage(driver, topNav);
+            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
             //No need to check for null; AddItemToCart() already handles the null case
             shopPage.AddItemToCart(item);
         }
 
+
+
+
         [When(@"I successfully complete checkout using these details")]
         public void WhenISuccessfullyCompleteCheckoutUsingTheseDetails(Table table)
         {
-            ShopPage shopPage = new ShopPage(driver, topNav);
+            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
+            CheckoutPage checkoutPage = (CheckoutPage)_scenarioContext["checkoutPage"];
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
 
             shopPage.ViewCart();
             cartPage.ProceedToCheckout();
@@ -41,14 +44,21 @@ namespace ecommerceFinalProject.StepDefinitions
                 billingDetails.Add(row["postcode"]);
                 billingDetails.Add(row["phone"]);
             }
-            checkout.FillBillingDetails(billingDetails);
-            checkout.SubmitOrder();
+            checkoutPage.FillBillingDetails(billingDetails);
+            checkoutPage.SubmitOrder();
         }
+
+
 
 
         [Then(@"order number shown after checkout matches the one in Orders page")]
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
+            TopNav topNav = (TopNav)_scenarioContext["topNav"];
+            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
+            OrderReceivedPage orderReceivedPage = (OrderReceivedPage)_scenarioContext["orderReceivedPage"];
+
+
             //Capture the initial order number
             string orderNumberAtCheckout = orderReceivedPage.GetOrderNumberAtCheckout();
             //Take a screenshot of the initial order number displayed right after the checkout page
