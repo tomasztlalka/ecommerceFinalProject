@@ -12,6 +12,7 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
 global using static ecommerceFinalProject.Utils.StaticHelpers;
+global using static ecommerceFinalProject.Utils.ContextDictionary;
 global using System.Security.Cryptography;
 global using System.Globalization;
 global using NUnit.Framework.Internal;

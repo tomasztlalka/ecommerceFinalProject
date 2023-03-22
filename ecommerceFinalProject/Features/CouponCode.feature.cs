@@ -87,7 +87,6 @@ namespace ecommerceFinalProject.Features
         [NUnit.Framework.DescriptionAttribute("Apply discount coupon")]
         [NUnit.Framework.CategoryAttribute("PurchasingItems")]
         [NUnit.Framework.TestCaseAttribute("Cap", null)]
-        [NUnit.Framework.TestCaseAttribute("Random", null)]
         public void ApplyDiscountCoupon(string item, string[] exampleTags)
         {
             string[] @__tags = new string[] {

@@ -51,7 +51,6 @@ namespace ecommerceFinalProject.POMClasses
                 while (true)
                 {
                     DeleteItem();
-                    //WaitForElement(By.CssSelector("a[class='remove']"), 3, _driver);
                     Thread.Sleep(1000);
                 }
             }

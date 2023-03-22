@@ -1,15 +1,30 @@
-﻿namespace ecommerceFinalProject.Utils
+﻿using ecommerceFinalProject.POMClasses;
+
+namespace ecommerceFinalProject.Utils
 {
 
     [Binding]
     public class TestBaseSpecflow
     {
         public static IWebDriver driver;
-
+        
         private readonly ScenarioContext _scenarioContext;
+        //private readonly ShopPage _shopPage1;
+        //private readonly CheckoutPage _checkoutPage;
+        //private readonly CartPage _cartPage;
+        //private readonly TopNav _topNav;
+        //private readonly MyAccountPage _myAccountPage;
+        //private readonly OrderReceivedPage _orderReceivedPage;
+
         public TestBaseSpecflow(ScenarioContext scenarioContext)
         {
-            _scenarioContext= scenarioContext;
+            _scenarioContext = scenarioContext;
+            //_shopPage1 = (ShopPage)_scenarioContext["shopPage"];
+            //_checkoutPage = (CheckoutPage)_scenarioContext["checkoutPage"];
+            //_cartPage = (CartPage)_scenarioContext["cartPage"];
+            //_topNav = (TopNav)_scenarioContext["topNav"];
+            //_myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
+            //_orderReceivedPage = (OrderReceivedPage)_scenarioContext["orderReceivedPage"];
         }
 
         [BeforeScenario]
@@ -41,26 +56,11 @@
             driver.Manage().Window.Maximize();
             driver.Url = Environment.GetEnvironmentVariable("BASEURL");
 
+            ContextDictionary cd = new ContextDictionary(_scenarioContext);
+            cd.DefineContextDictionary();
 
-            CartPage cartPage = new CartPage(driver);
-            TopNav topNav = new TopNav(driver);
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
-            LoginPage loginPage = new LoginPage(driver);
-            OrderReceivedPage orderReceivedPage = new OrderReceivedPage(driver);
-            CheckoutPage checkoutPage = new CheckoutPage(driver);
-            ShopPage shopPage = new ShopPage(driver);
+            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
 
-            _scenarioContext["driver"] = driver;
-            _scenarioContext["cartPage"] = cartPage;
-            _scenarioContext["topNav"] = topNav;
-            _scenarioContext["myAccountPage"] = myAccountPage;
-            _scenarioContext["loginPage"] = loginPage;
-            _scenarioContext["orderReceivedPage"] = orderReceivedPage;
-            _scenarioContext["checkoutPage"] = checkoutPage;
-            _scenarioContext["shopPage"] = shopPage;
-
-            
-           
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
             cartPage.DismissNoticeBar();
         }
