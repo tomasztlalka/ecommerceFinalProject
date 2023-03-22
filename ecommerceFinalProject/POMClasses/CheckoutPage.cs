@@ -53,11 +53,11 @@ namespace ecommerceFinalProject.POMClasses
                     PlaceOrderButton.Click();
                     return true;
                 }
-                catch (ElementClickInterceptedException ex)
+                catch (ElementClickInterceptedException)
                 {
                     return false;
                 }
-                catch(StaleElementReferenceException ex)
+                catch(StaleElementReferenceException)
                 {
                     return false;
                 }
@@ -65,11 +65,6 @@ namespace ecommerceFinalProject.POMClasses
 
             //Wait for order number to appear on page
             WaitForElement(By.CssSelector("li[class='woocommerce-order-overview__order order'] > strong"), 3, _driver);
-
-
         }
-
-
     }
-
 }

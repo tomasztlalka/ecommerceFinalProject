@@ -1,41 +1,35 @@
-using Gherkin.Ast;
-using static ecommerceFinalProject.Utils.TestBaseSpecflow;
-
 namespace ecommerceFinalProject.StepDefinitions
 {
     [Binding]
     public class OrderNumbersStepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly ShopPage _shopPage;
+        private readonly CheckoutPage _checkoutPage;
+        private readonly CartPage _cartPage;
+        private readonly TopNav _topNav;
+        private readonly MyAccountPage _myAccountPage;
+        private readonly OrderReceivedPage _orderReceivedPage;
         public OrderNumbersStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-
+            _shopPage = (ShopPage)_scenarioContext["shopPage"];
+            _checkoutPage= (CheckoutPage)_scenarioContext["checkoutPage"];
+            _cartPage = (CartPage)_scenarioContext["cartPage"];
+            _topNav = (TopNav)_scenarioContext["topNav"];
+            _myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
+            _orderReceivedPage = (OrderReceivedPage)_scenarioContext["orderReceivedPage"];
         }
-
-        [Given(@"I have added an '(.*)' to cart")]
-        public void GivenIHaveAddedAnItemToCart(string item)
-        {
-            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
-            //No need to check for null; AddItemToCart() already handles the null case
-            shopPage.AddItemToCart(item);
-        }
-
-
-
+        
 
         [When(@"I successfully complete checkout using these details")]
         public void WhenISuccessfullyCompleteCheckoutUsingTheseDetails(Table table)
         {
-            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
-            CheckoutPage checkoutPage = (CheckoutPage)_scenarioContext["checkoutPage"];
-            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
-
-            shopPage.ViewCart();
-            cartPage.ProceedToCheckout();
+            _shopPage.ViewCart();
+            _cartPage.ProceedToCheckout();
 
             List<string> billingDetails = new List<string>();
-            foreach (TechTalk.SpecFlow.TableRow row in table.Rows)
+            foreach (TableRow row in table.Rows)
             {
                 billingDetails.Add(row["first_name"]);
                 billingDetails.Add(row["last_name"]);
@@ -44,8 +38,8 @@ namespace ecommerceFinalProject.StepDefinitions
                 billingDetails.Add(row["postcode"]);
                 billingDetails.Add(row["phone"]);
             }
-            checkoutPage.FillBillingDetails(billingDetails);
-            checkoutPage.SubmitOrder();
+            _checkoutPage.FillBillingDetails(billingDetails);
+            _checkoutPage.SubmitOrder();
         }
 
 
@@ -54,24 +48,19 @@ namespace ecommerceFinalProject.StepDefinitions
         [Then(@"order number shown after checkout matches the one in Orders page")]
         public void ThenOrderNumberShownAfterCheckoutMatchesTheOneInOrdersPage()
         {
-            TopNav topNav = (TopNav)_scenarioContext["topNav"];
-            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
-            OrderReceivedPage orderReceivedPage = (OrderReceivedPage)_scenarioContext["orderReceivedPage"];
-
-
             //Capture the initial order number
-            string orderNumberAtCheckout = orderReceivedPage.GetOrderNumberAtCheckout();
+            string orderNumberAtCheckout = _orderReceivedPage.GetOrderNumberAtCheckout();
             //Take a screenshot of the initial order number displayed right after the checkout page
             TakeScreenshotOfElement("div[class='woocommerce-order']", "test2_initialorder");
             //Write the initial order number to console
             Console.WriteLine("Order number at checkout is " + orderNumberAtCheckout);
 
-            topNav.NavigateToMyAccount();
+            _topNav.NavigateToMyAccount();
             //Navigate to 'Orders' tab on 'My account' page
-            myAccountPage.ViewOrders();
+            _myAccountPage.ViewOrders();
 
             //Capture the order number present in order history
-            string orderNumberFromHistory = myAccountPage.GetOrderNumberInHistory();
+            string orderNumberFromHistory = _myAccountPage.GetOrderNumberInHistory();
             //Take a screenshot of the order number present in the 'Orders' tab
             TakeScreenshotOfElement("tbody >tr", "test2_secondorder");
             //Write the order number from 'Orders' tab to console

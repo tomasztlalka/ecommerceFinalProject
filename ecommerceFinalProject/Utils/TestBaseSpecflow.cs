@@ -6,7 +6,6 @@
     {
         public static IWebDriver driver;
 
-
         private readonly ScenarioContext _scenarioContext;
         public TestBaseSpecflow(ScenarioContext scenarioContext)
         {
@@ -17,8 +16,8 @@
         public void SetUp()
         {
             //Instantiate driver based on string value in runsettings
-            string driverTest = Environment.GetEnvironmentVariable("BROWSER").ToLower();
-            switch (driverTest)
+            string driverBrowser = Environment.GetEnvironmentVariable("BROWSER").ToLower();
+            switch (driverBrowser)
             {
                 case "chrome":
                     driver = new ChromeDriver();
@@ -39,6 +38,10 @@
                     break;
             }
 
+            driver.Manage().Window.Maximize();
+            driver.Url = Environment.GetEnvironmentVariable("BASEURL");
+
+
             CartPage cartPage = new CartPage(driver);
             TopNav topNav = new TopNav(driver);
             MyAccountPage myAccountPage = new MyAccountPage(driver);
@@ -47,6 +50,7 @@
             CheckoutPage checkoutPage = new CheckoutPage(driver);
             ShopPage shopPage = new ShopPage(driver);
 
+            _scenarioContext["driver"] = driver;
             _scenarioContext["cartPage"] = cartPage;
             _scenarioContext["topNav"] = topNav;
             _scenarioContext["myAccountPage"] = myAccountPage;
@@ -55,16 +59,11 @@
             _scenarioContext["checkoutPage"] = checkoutPage;
             _scenarioContext["shopPage"] = shopPage;
 
-
-
-
-            driver.Manage().Window.Maximize();
-            driver.Url = Environment.GetEnvironmentVariable("BASEURL");
+            
            
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
             cartPage.DismissNoticeBar();
         }
-
 
         [AfterScenario]
         public void TearDown()
@@ -83,9 +82,6 @@
             driver.Quit();
         }
 
-
-
-
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
         {
@@ -94,9 +90,7 @@
             MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
             LoginPage loginPage = (LoginPage)_scenarioContext["loginPage"];
           
-
             topNav.NavigateToMyAccount();
-
             loginPage.SetUsername(GetContextParameter("username"));
             loginPage.SetPassword(GetContextParameter("password"));
             loginPage.SubmitForm();
@@ -108,15 +102,14 @@
             cartPage.ClearCart();
         }
 
+        [Given(@"I have added an '(.*)' to cart")]
+        public void GivenIHaveAddedAnItemToCart(string item)
+        {
+            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
+            //No need to check for null; AddItemToCart() already handles the null case
+            shopPage.AddItemToCart(item);
+        }
 
-
-        
-
-       
     }
-
-
-
-
 }
 
