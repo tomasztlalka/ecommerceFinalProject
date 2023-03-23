@@ -87,6 +87,7 @@ namespace ecommerceFinalProject.Features
         [NUnit.Framework.DescriptionAttribute("Verify order number")]
         [NUnit.Framework.CategoryAttribute("PurchasingItems")]
         [NUnit.Framework.TestCaseAttribute("Cap", null)]
+        [NUnit.Framework.TestCaseAttribute("Random", null)]
         public void VerifyOrderNumber(string item, string[] exampleTags)
         {
             string[] @__tags = new string[] {

@@ -6,25 +6,13 @@ namespace ecommerceFinalProject.Utils
     [Binding]
     public class TestBaseSpecflow
     {
-        public static IWebDriver driver;
+        private IWebDriver driver;
         
         private readonly ScenarioContext _scenarioContext;
-        //private readonly ShopPage _shopPage1;
-        //private readonly CheckoutPage _checkoutPage;
-        //private readonly CartPage _cartPage;
-        //private readonly TopNav _topNav;
-        //private readonly MyAccountPage _myAccountPage;
-        //private readonly OrderReceivedPage _orderReceivedPage;
-
+        
         public TestBaseSpecflow(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            //_shopPage1 = (ShopPage)_scenarioContext["shopPage"];
-            //_checkoutPage = (CheckoutPage)_scenarioContext["checkoutPage"];
-            //_cartPage = (CartPage)_scenarioContext["cartPage"];
-            //_topNav = (TopNav)_scenarioContext["topNav"];
-            //_myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
-            //_orderReceivedPage = (OrderReceivedPage)_scenarioContext["orderReceivedPage"];
         }
 
         [BeforeScenario]
@@ -53,14 +41,13 @@ namespace ecommerceFinalProject.Utils
                     break;
             }
 
+            //Add the driver to scenarioContext dictionary
+            _scenarioContext["driver"] = driver;
+
             driver.Manage().Window.Maximize();
             driver.Url = Environment.GetEnvironmentVariable("BASEURL");
 
-            ContextDictionary cd = new ContextDictionary(_scenarioContext);
-            cd.DefineContextDictionary();
-
-            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
-
+            CartPage cartPage = new CartPage(driver);
             //Dismissing the bottom blue bar - makes it easier to click and capture elements during tests
             cartPage.DismissNoticeBar();
         }
@@ -68,15 +55,14 @@ namespace ecommerceFinalProject.Utils
         [AfterScenario]
         public void TearDown()
         {
-            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
-            TopNav topNav = (TopNav)_scenarioContext["topNav"];
-            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
-
+            CartPage cartPage = new CartPage(driver);
             //Attempt to delete all items from the cart after every test is run
             cartPage.ClearCart();
 
+            TopNav topNav = new TopNav(driver);
             topNav.NavigateToMyAccount();
 
+            MyAccountPage myAccountPage = new MyAccountPage(driver);
             //Logout done in TearDown as both test cases end by logging out
             myAccountPage.Logout();
             driver.Quit();
@@ -85,19 +71,19 @@ namespace ecommerceFinalProject.Utils
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
         {
-            CartPage cartPage = (CartPage)_scenarioContext["cartPage"];
-            TopNav topNav = (TopNav)_scenarioContext["topNav"];
-            MyAccountPage myAccountPage = (MyAccountPage)_scenarioContext["myAccountPage"];
-            LoginPage loginPage = (LoginPage)_scenarioContext["loginPage"];
-          
+            TopNav topNav = new TopNav(driver);
             topNav.NavigateToMyAccount();
+
+            LoginPage loginPage = new LoginPage(driver);
             loginPage.SetUsername(GetContextParameter("username"));
             loginPage.SetPassword(GetContextParameter("password"));
             loginPage.SubmitForm();
 
+            MyAccountPage myAccountPage = new MyAccountPage(driver);
             //Assert that the login was successful
             Assert.That(myAccountPage.LogoutTab.Displayed, "Can't find the logout button - not logged in");
 
+            CartPage cartPage = new CartPage(driver);
             //Attempt to delete all items from the cart before starting any tests
             cartPage.ClearCart();
         }
@@ -105,7 +91,7 @@ namespace ecommerceFinalProject.Utils
         [Given(@"I have added an '(.*)' to cart")]
         public void GivenIHaveAddedAnItemToCart(string item)
         {
-            ShopPage shopPage = (ShopPage)_scenarioContext["shopPage"];
+            ShopPage shopPage = new ShopPage(driver);
             //No need to check for null; AddItemToCart() already handles the null case
             shopPage.AddItemToCart(item);
         }

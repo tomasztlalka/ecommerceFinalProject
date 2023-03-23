@@ -16,6 +16,6 @@ Scenario Outline: Verify order number
 	Examples:
 	| item   |
 	| Cap    |
-	##| Random |
+	| Random |
 	
 

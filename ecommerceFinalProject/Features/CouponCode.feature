@@ -14,7 +14,7 @@ Scenario Outline: Apply discount coupon
 	Examples:
 	| item   |
 	| Cap    |
-	##| Random |
+	| Random |
 	
 
 

@@ -14,7 +14,7 @@ namespace ecommerceFinalProject.Utils
             wait2.Until(drv => drv.FindElement(locator).Displayed);
         }
 
-        public static void TakeScreenshotOfElement(string locator, string filename, bool wait=false)
+        public static void TakeScreenshotOfElement(IWebDriver driver, string locator, string filename, bool wait=false)
         {
             if (wait)
             {
@@ -29,7 +29,7 @@ namespace ecommerceFinalProject.Utils
             startupPath = startupPath.Replace(pathToRemove, "Screenshots\\");
 
 
-            IWebElement form = TestBaseSpecflow.driver.FindElement(By.CssSelector(locator));
+            IWebElement form = driver.FindElement(By.CssSelector(locator));
             ITakesScreenshot formss = form as ITakesScreenshot;
             var screenshotForm = formss.GetScreenshot();
             screenshotForm.SaveAsFile(startupPath + filename + ".png", ScreenshotImageFormat.Png);
@@ -38,14 +38,6 @@ namespace ecommerceFinalProject.Utils
             TestContext.AddTestAttachment(startupPath + filename + ".png", filename);
         }
 
-
-        //A method for scrolling to a specific web element
-        public static void ScrollToElement(IWebElement element)
-        {
-            Actions actions = new Actions(TestBaseSpecflow.driver);
-            actions.MoveToElement(element).Perform();
-
-        }
 
         public static string CheckNull(string dataValue)
         {
