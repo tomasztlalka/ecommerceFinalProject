@@ -48,7 +48,6 @@ namespace ecommerceFinalProject.Utils
             //Add the driver and the output helper to scenarioContext dictionary
             _scenarioContext["driver"] = driver;
             _scenarioContext["output"] = _outputHelper;
-            
 
             driver.Manage().Window.Maximize();
             driver.Url = Environment.GetEnvironmentVariable("BASEURL");
@@ -101,7 +100,6 @@ namespace ecommerceFinalProject.Utils
             //No need to check for null; AddItemToCart() already handles the null case
             shopPage.AddItemToCart(item);
         }
-
     }
 }
 
