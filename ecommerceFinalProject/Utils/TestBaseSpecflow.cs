@@ -1,4 +1,5 @@
 ﻿using ecommerceFinalProject.POMClasses;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace ecommerceFinalProject.Utils
 {
@@ -9,10 +10,13 @@ namespace ecommerceFinalProject.Utils
         private IWebDriver driver;
         
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISpecFlowOutputHelper _outputHelper;
         
-        public TestBaseSpecflow(ScenarioContext scenarioContext)
+        public TestBaseSpecflow(ScenarioContext scenarioContext, ISpecFlowOutputHelper outputHelper)
         {
             _scenarioContext = scenarioContext;
+            _outputHelper = outputHelper;
+
         }
 
         [BeforeScenario]
@@ -41,8 +45,10 @@ namespace ecommerceFinalProject.Utils
                     break;
             }
 
-            //Add the driver to scenarioContext dictionary
+            //Add the driver and the output helper to scenarioContext dictionary
             _scenarioContext["driver"] = driver;
+            _scenarioContext["output"] = _outputHelper;
+            
 
             driver.Manage().Window.Maximize();
             driver.Url = Environment.GetEnvironmentVariable("BASEURL");
@@ -91,7 +97,7 @@ namespace ecommerceFinalProject.Utils
         [Given(@"I have added an '(.*)' to cart")]
         public void GivenIHaveAddedAnItemToCart(string item)
         {
-            ShopPage shopPage = new ShopPage(driver);
+            ShopPage shopPage = new ShopPage(driver, _outputHelper);
             //No need to check for null; AddItemToCart() already handles the null case
             shopPage.AddItemToCart(item);
         }

@@ -36,8 +36,8 @@ namespace ecommerceFinalProject.Utils
 
             //Adding file to results
             TestContext.AddTestAttachment(startupPath + filename + ".png", filename);
-        }
 
+        }
 
         public static string CheckNull(string dataValue)
         {

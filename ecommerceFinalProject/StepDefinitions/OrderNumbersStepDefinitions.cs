@@ -1,3 +1,5 @@
+using TechTalk.SpecFlow.Infrastructure;
+
 namespace ecommerceFinalProject.StepDefinitions
 {
     [Binding]
@@ -5,18 +7,23 @@ namespace ecommerceFinalProject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISpecFlowOutputHelper _outputHelper;
+       
         
         public OrderNumbersStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
             _driver = (IWebDriver)_scenarioContext["driver"];
+            _outputHelper = (ISpecFlowOutputHelper)_scenarioContext["output"];
+
+
         }
-        
+
 
         [When(@"I successfully complete checkout using these details")]
         public void WhenISuccessfullyCompleteCheckoutUsingTheseDetails(Table table)
         {
-            ShopPage shopPage = new ShopPage(_driver);
+            ShopPage shopPage = new ShopPage(_driver, _outputHelper);
             shopPage.ViewCart();
 
             CartPage cartPage = new CartPage(_driver);

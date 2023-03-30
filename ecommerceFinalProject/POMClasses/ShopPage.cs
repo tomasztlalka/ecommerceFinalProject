@@ -1,14 +1,20 @@
-﻿namespace ecommerceFinalProject.POMClasses
+﻿using TechTalk.SpecFlow.Infrastructure;
+
+namespace ecommerceFinalProject.POMClasses
 {
 
     internal class ShopPage
     {
 
         private IWebDriver _driver; //Field to hold a webdriver instance
-
-        public ShopPage(IWebDriver driver) //Get the webdriver instance from the calling test
+        private readonly ISpecFlowOutputHelper _outputHelper;
+        
+        public ShopPage(IWebDriver driver, ISpecFlowOutputHelper outputHelper) //Get the webdriver instance from the calling test
         {
             this._driver = driver;
+            _outputHelper = outputHelper;
+            
+
         }
 
         //Service Methods
@@ -30,8 +36,15 @@
                     itemsInShop.Add(itemAttribute);
                 }
 
+                
+
                 Random rand = new Random();
                 var randomIndex = rand.Next(0, itemsInShop.Count);
+
+                ////////////
+                
+                _outputHelper.WriteLine("Item added to cart: " + itemsInShop[randomIndex]);
+
                 Console.WriteLine("Item added to cart: " + itemsInShop[randomIndex]);
 
                 Item = itemsInShop[randomIndex];

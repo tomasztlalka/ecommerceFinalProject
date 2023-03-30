@@ -1,3 +1,5 @@
+using TechTalk.SpecFlow.Infrastructure;
+
 namespace ecommerceFinalProject.StepDefinitions
 {
 
@@ -5,20 +7,26 @@ namespace ecommerceFinalProject.StepDefinitions
     public class CouponCodeStepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISpecFlowOutputHelper _outputHelper;
+
         private IWebDriver _driver;
+        
 
 
         public CouponCodeStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
             _driver = (IWebDriver)_scenarioContext["driver"];
+            _outputHelper = (ISpecFlowOutputHelper)_scenarioContext["output"];
+                       
         }
 
 
         [When(@"I apply the '([^']*)' coupon code during checkout")]
         public void WhenIApplyADiscountCodeDuringCheckout(string couponCode)
         {
-            ShopPage shopPage = new ShopPage(_driver);
+
+            ShopPage shopPage = new ShopPage(_driver, _outputHelper);
             shopPage.ViewCart();
 
             CartPage cartPage = new CartPage(_driver);
