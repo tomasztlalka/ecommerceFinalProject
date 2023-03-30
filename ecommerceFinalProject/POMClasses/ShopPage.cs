@@ -2,10 +2,8 @@
 
 namespace ecommerceFinalProject.POMClasses
 {
-
     internal class ShopPage
     {
-
         private IWebDriver _driver; //Field to hold a webdriver instance
         private readonly ISpecFlowOutputHelper _outputHelper;
         
@@ -13,8 +11,6 @@ namespace ecommerceFinalProject.POMClasses
         {
             this._driver = driver;
             _outputHelper = outputHelper;
-            
-
         }
 
         //Service Methods
@@ -36,20 +32,14 @@ namespace ecommerceFinalProject.POMClasses
                     itemsInShop.Add(itemAttribute);
                 }
 
-                
-
                 Random rand = new Random();
                 var randomIndex = rand.Next(0, itemsInShop.Count);
 
-                ////////////
-                
                 _outputHelper.WriteLine("Item added to cart: " + itemsInShop[randomIndex]);
-
                 Console.WriteLine("Item added to cart: " + itemsInShop[randomIndex]);
 
                 Item = itemsInShop[randomIndex];
             }
-
             _driver.FindElement(By.CssSelector("a[aria-label='Add “" + Item + "” to your cart']")).Click();
         }
 
@@ -59,8 +49,5 @@ namespace ecommerceFinalProject.POMClasses
             WaitForElement(By.LinkText("View cart"), 2, _driver);
             topNav.NavigateToCart();
         }
-
-
     }
-
 }
